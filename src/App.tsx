@@ -66,12 +66,21 @@ const App = () => {
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             style={styles.input}
+            disabled={loading}
           />
-          <button onClick={handleSend} style={styles.button} disabled={loading}>
-            {loading ? '↻' : 'Send'}
+          <button
+            onClick={handleSend}
+            style={
+              loading
+                ? { ...styles.button, ...styles.disabledButton }
+                : styles.button
+            }
+            disabled={loading}
+          >
+            Send
           </button>
         </div>
-        {error ? <p style={{ color: "#f00" }}>{error}</p> : null }
+        {error ? <p style={{ color: "#f00" }}>{error}</p> : null}
       </div>
 
       <iframe
@@ -129,6 +138,9 @@ const styles = {
     fontSize: "16px",
     borderRadius: "4px",
     cursor: "pointer",
+  },
+  disabledButton: {
+    backgroundColor: "#6666dd",
   },
   editableContainer: {
     flexGrow: 1,
