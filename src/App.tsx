@@ -68,10 +68,9 @@ const App = () => {
             style={styles.input}
           />
           <button onClick={handleSend} style={styles.button} disabled={loading}>
-            Send
+            {loading ? '↻' : 'Send'}
           </button>
         </div>
-        {loading ? <p>Loading...</p> : null}
         {error ? <p style={{ color: "#f00" }}>{error}</p> : null }
       </div>
 
