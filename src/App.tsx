@@ -5,27 +5,37 @@ const API_URL = import.meta.env.VITE_API_URL;
 const App = () => {
   const [prompt, setPrompt] = useState("");
   const [renderedHTML, setRenderedHTML] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   const getUpdatedHTML = () => {
-    let updatedHTML = ''
+    let updatedHTML = "";
     if (iframeRef.current) {
       const iframeDoc =
         iframeRef.current.contentDocument ||
         iframeRef.current.contentWindow?.document;
-      updatedHTML = iframeDoc?.documentElement?.outerHTML || '';
+      updatedHTML = iframeDoc?.documentElement?.outerHTML || "";
     }
     return updatedHTML;
   };
 
   const handleSend = async () => {
+    setLoading(true);
+    setError(null);
     const updatedDOM = getUpdatedHTML();
-    const newHTML = await getNewHtml(prompt, updatedDOM);
-    setRenderedHTML(newHTML);
-    setPrompt("");
+    try {
+      const newHTML = await getNewHtml(prompt, updatedDOM);
+      setRenderedHTML(newHTML);
+      setPrompt("");
+    } catch (e) {
+      setError("Ocurrió un error" + e);
+    } finally {
+      setLoading(false);
+    }
   };
-  
+
   const getNewHtml = async (prompt: string, currentHTML: string) => {
     const response = await fetch(`${API_URL}/react-gpt`, {
       method: "POST",
@@ -43,7 +53,7 @@ const App = () => {
   };
 
   return (
-    <div style={{ height: '100vh'}}>
+    <div style={{ height: "100vh" }}>
       <div style={styles.container}>
         <h1 style={styles.header}>WebPrompt</h1>
 
@@ -57,10 +67,11 @@ const App = () => {
             onChange={(e) => setPrompt(e.target.value)}
             style={styles.input}
           />
-          <button onClick={handleSend} style={styles.button}>
+          <button onClick={handleSend} style={styles.button} disabled={loading}>
             Send
           </button>
         </div>
+        <p style={{ color: "#f00" }}>{error}</p>
       </div>
 
       <iframe
@@ -68,7 +79,11 @@ const App = () => {
         title="HTML Renderer"
         sandbox="allow-same-origin allow-scripts allow-forms"
         srcDoc={renderedHTML}
-        style={{ width: "100%", height: "100%", border: "1px solid transparent" }}
+        style={{
+          width: "100%",
+          height: "100%",
+          border: "1px solid transparent",
+        }}
       />
     </div>
   );
@@ -92,7 +107,7 @@ const styles = {
   header: {
     color: "#3333dd",
     marginBottom: "10px",
-    textAlign: 'center' as const,
+    textAlign: "center" as const,
   },
   promptSection: {
     display: "flex",
