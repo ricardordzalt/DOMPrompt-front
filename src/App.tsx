@@ -71,7 +71,8 @@ const App = () => {
             Send
           </button>
         </div>
-        <p style={{ color: "#f00" }}>{error}</p>
+        {loading ? <p>Loading...</p> : null}
+        {error ? <p style={{ color: "#f00" }}>{error}</p> : null }
       </div>
 
       <iframe
