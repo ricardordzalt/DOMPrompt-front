@@ -2,7 +2,7 @@
 import { useState, useRef } from "react";
 import { GetNewHtml, getNewHtml } from "../../../../api/prompt/get-new-html";
 import { useMutation } from "@tanstack/react-query";
-import styles from "./Prompt.module.css";
+import styles from "./prompt.module.css";
 
 const getUpdatedHTML = (
   iframeRef: React.RefObject<HTMLIFrameElement | null>
