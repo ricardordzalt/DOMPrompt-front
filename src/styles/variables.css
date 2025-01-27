@@ -1,0 +1,17 @@
+:root {
+  /* Primary Colors */
+  --primary-color: #6495ED;
+  --secondary-color: rgba(100, 149, 237, 0.3); /* #6495ED T 30% */
+  --tertiary-color: rgba(100, 149, 237, 0.1); /* #6495ED T 10% */
+
+  /* Additional Colors */
+  --icon-color: #642CB4;
+  --white-color: #FFFFFF;
+  --close-icon-color: #BB0E11;
+
+  /* Text Colors */
+  --primary-text: #000000;
+  --secondary-text: #363030;
+  --tertiary-text: #642CB4;
+  --error-text: #F2272B;
+}
