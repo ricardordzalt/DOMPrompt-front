@@ -11,11 +11,11 @@ const TopBar = () => {
   return (
     <div className={styles.container}>
       {/* Sidebar / Topbar */}
-      <nav className={styles.navigation}>
+      <nav className={styles.navigation} aria-label="Topbar navigation">
         <div className={styles.topbar}>
-          <ul className={styles.siderbarOptions}>
-            <li>
-              <a href="#">
+          <ul className={styles.siderbarOptions} role="menu" aria-label="Quick actions">
+            <li role="menuitem">
+              <a href="#" aria-label="New chat">
                 <FontAwesomeIcon
                   icon={faPenToSquare}
                   color="var(--icon-color)"
@@ -23,8 +23,8 @@ const TopBar = () => {
                 />
               </a>
             </li>
-            <li>
-              <a href="#">
+            <li role="menuitem">
+              <a href="#" aria-label="My apps">
                 <FontAwesomeIcon
                   icon={faBorderAll}
                   color="var(--icon-color)"
@@ -33,15 +33,17 @@ const TopBar = () => {
               </a>
             </li>
           </ul>
-          <span className={styles.topbarLogoContainer}>
+          <span className={styles.topbarLogoContainer} aria-label="Home">
             <AppIcon style={{ width: "1.25rem", height: "1.25rem" }} />
             <p className={styles.topbarLogoTitle}>Chat Render</p>
           </span>
-          <FontAwesomeIcon
-            icon={faArrowRightFromBracket}
-            color="var(--icon-color)"
-            className={styles.smallIcon}
-          />
+          <a href="#logout" aria-label="Log out">
+            <FontAwesomeIcon
+              icon={faArrowRightFromBracket}
+              color="var(--icon-color)"
+              className={styles.smallIcon}
+            />
+          </a>
         </div>
       </nav>
     </div>

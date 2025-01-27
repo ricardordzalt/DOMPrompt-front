@@ -9,14 +9,18 @@ import AppIcon from "../../../../assets/icons/app-icon.svg";
 const SideBar = () => {
   return (
     <div className={styles.container}>
-      <nav className={styles.navigation}>
+      <nav className={styles.navigation} aria-label="Sidebar navigation">
         <div className={styles.sidebar}>
-          <a href="#" className={styles.AppIcon}>
+          <a href="#" className={styles.AppIcon} aria-label="Home">
             <AppIcon />
           </a>
-          <ul className={styles.siderbarOptions}>
-            <li className={styles.siderbarOption}>
-              <a href="#" className={styles.siderbarLink}>
+          <ul className={styles.siderbarOptions} role="menu">
+            <li className={styles.siderbarOption} role="menuitem">
+              <a 
+                href="#" 
+                className={styles.siderbarLink} 
+                aria-label="New chat"
+              >
                 <FontAwesomeIcon
                   icon={faPenToSquare}
                   size="2x"
@@ -25,8 +29,12 @@ const SideBar = () => {
                 />
               </a>
             </li>
-            <li className={styles.siderbarOption}>
-              <a href="#" className={styles.siderbarLink}>
+            <li className={styles.siderbarOption} role="menuitem">
+              <a 
+                href="#" 
+                className={styles.siderbarLink} 
+                aria-label="My apps"
+              >
                 <FontAwesomeIcon
                   icon={faBorderAll}
                   size="2x"
