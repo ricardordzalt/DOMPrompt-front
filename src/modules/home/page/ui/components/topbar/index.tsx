@@ -3,43 +3,49 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPenToSquare,
   faBorderAll,
+  faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import AppIcon from "../../../../assets/icons/app-icon.svg";
 
-const SideBar = () => {
+const TopBar = () => {
   return (
     <div className={styles.container}>
+      {/* Sidebar / Topbar */}
       <nav className={styles.navigation}>
-        <div className={styles.sidebar}>
-          <a href="#" className={styles.AppIcon}>
-            <AppIcon />
-          </a>
+        <div className={styles.topbar}>
           <ul className={styles.siderbarOptions}>
-            <li className={styles.siderbarOption}>
-              <a href="#" className={styles.siderbarLink}>
+            <li>
+              <a href="#">
                 <FontAwesomeIcon
                   icon={faPenToSquare}
-                  size="2x"
                   color="var(--icon-color)"
-                  fixedWidth
+                  className={`${styles.smallIcon} ${styles.firstSmallIcon}`}
                 />
               </a>
             </li>
-            <li className={styles.siderbarOption}>
-              <a href="#" className={styles.siderbarLink}>
+            <li>
+              <a href="#">
                 <FontAwesomeIcon
                   icon={faBorderAll}
-                  size="2x"
                   color="var(--icon-color)"
-                  fixedWidth
+                  className={styles.smallIcon}
                 />
               </a>
             </li>
           </ul>
+          <span className={styles.topbarLogoContainer}>
+            <AppIcon style={{ width: "1.25rem", height: "1.25rem" }} />
+            <p className={styles.topbarLogoTitle}>Chat Render</p>
+          </span>
+          <FontAwesomeIcon
+            icon={faArrowRightFromBracket}
+            color="var(--icon-color)"
+            className={styles.smallIcon}
+          />
         </div>
       </nav>
     </div>
   );
 };
 
-export { SideBar };
+export { TopBar };

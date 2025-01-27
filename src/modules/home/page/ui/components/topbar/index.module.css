@@ -1,0 +1,58 @@
+/* Estilo base (Desktop por defecto) */
+.container {
+  display: none;
+}
+
+/* Estilos para móvil */
+@media (max-width: 768px) {
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: var(--white-color);
+  }
+
+  .navigation {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0px;
+    background-color: var(--tertiary-color);
+  }
+
+  .topbar {
+    display: flex;
+    background-color: var(--tertiary-color);
+    color: var(--primary-text);
+    justify-content: space-between;
+    border-bottom: 1px solid #e6e6e6;
+    width: 100%;
+    padding: 0 1rem;
+    height: 3rem;
+    align-items: center;
+  }
+
+  .topbarLogoContainer {
+    display: flex;
+    align-items: center;
+  }
+
+  .topbarLogoTitle {
+    margin-left: 0.5rem;
+    font-size: 1.25rem;
+  }
+
+  .siderbarOptions {
+    display: flex;
+    list-style: none;
+    padding: 0;
+  }
+
+  .smallIcon {
+    font-size: 1rem;
+  }
+
+  .firstSmallIcon {
+    margin-right: 1rem;
+  }
+}
