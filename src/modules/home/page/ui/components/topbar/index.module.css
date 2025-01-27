@@ -1,16 +1,46 @@
 /* Estilo base (Desktop por defecto) */
-.container {
+.topbarMobile {
   display: none;
 }
 
-/* Estilos para móvil */
-@media (max-width: 768px) {
+.topbarDesktop {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Estilos para desktop */
+@media (min-width: 768px) {
 
   .container {
     display: flex;
     flex-direction: column;
-    height: 100vh;
     background-color: var(--white-color);
+    width: 100%;
+  }
+
+  .navigation {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+
+
+/* Estilos para móvil */
+@media (max-width: 768px) {
+
+  .topbarDesktop {
+    display: none;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--white-color);
+    width: 100%;
   }
 
   .navigation {
@@ -18,9 +48,10 @@
     justify-content: space-between;
     padding: 0px;
     background-color: var(--tertiary-color);
+    width: 100%;
   }
 
-  .topbar {
+  .topbarMobile {
     display: flex;
     background-color: var(--tertiary-color);
     color: var(--primary-text);

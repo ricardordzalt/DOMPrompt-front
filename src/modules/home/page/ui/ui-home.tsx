@@ -15,10 +15,10 @@ const UIHome = ({
   renderedHTML,
 }: any) => {
   return (
-    <>
+    <span style={{display: 'flex', flex: 1}}>
       <SideBar />
       <TopBar />
-    </>
+    </span>
   );
 };
 
