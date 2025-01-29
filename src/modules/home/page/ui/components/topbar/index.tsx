@@ -54,6 +54,7 @@ const TopBar = () => {
               icon={faArrowRightFromBracket}
               color="var(--icon-color)"
               className={styles.smallIcon}
+              size="2x"
             />
           </a>
         </span>

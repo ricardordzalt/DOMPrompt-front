@@ -12,6 +12,9 @@
 
 /* Estilos para desktop */
 @media (min-width: 768px) {
+  .topbarLogoTitle {
+    font-size: 1.75rem;
+  }
 
   .container {
     display: flex;

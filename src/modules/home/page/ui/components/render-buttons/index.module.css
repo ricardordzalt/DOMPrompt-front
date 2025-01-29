@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button {
+  background: none;
+  /* Sin fondo */
+  border: none;
+  /* Sin borde */
+  padding: 0;
+  /* Sin padding */
+  display: flex;
+  /* Alinear correctamente el ícono */
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  /* Cambiar el cursor al pasar sobre el botón */
+}
+
+.icon {
+  font-size: 1.75rem;
+}
+
+.firstIcon {
+  margin-right: 1rem;
+}
+
+/* Estilos para móvil */
+@media (max-width: 768px) {
+  .firstIcon {
+    margin-right: 0.5rem;
+  }
+
+  .icon {
+    font-size: 1rem;
+  }
+  
+}

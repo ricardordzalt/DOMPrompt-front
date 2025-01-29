@@ -4,6 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { SideBar } from "./components/sidebar";
 import { TopBar } from "./components/topbar";
+import ChatInput from "./components/chat-input";
+import RenderButtons from "./components/render-buttons";
+import { Render } from "./components/render";
 
 const UIHome = ({
   handleSend,
@@ -15,9 +18,27 @@ const UIHome = ({
   renderedHTML,
 }: any) => {
   return (
-    <span style={{display: 'flex', flex: 1}}>
+    <span className={styles.container}>
       <SideBar />
-      <TopBar />
+      <div className={styles.rightContainer}>
+        <span className={styles.topbarContainerMobile}>
+          <TopBar />
+        </span>
+        <span className={styles.contentContainer}>
+          <span className={styles.topbarContainerDesktop}>
+            <TopBar />
+          </span>
+          <span className={styles.chatContainer}>
+            <ChatInput />
+          </span>
+          <span className={styles.buttonsContainer}>
+            <RenderButtons />
+          </span>
+          <span className={styles.renderContainer}>
+            <Render />
+          </span>
+        </span>
+      </div>
     </span>
   );
 };

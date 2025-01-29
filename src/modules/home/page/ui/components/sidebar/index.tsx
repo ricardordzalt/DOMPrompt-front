@@ -23,9 +23,9 @@ const SideBar = () => {
               >
                 <FontAwesomeIcon
                   icon={faPenToSquare}
-                  size="2x"
                   color="var(--icon-color)"
                   fixedWidth
+                  className={styles.icon}
                 />
               </a>
             </li>
@@ -37,9 +37,9 @@ const SideBar = () => {
               >
                 <FontAwesomeIcon
                   icon={faBorderAll}
-                  size="2x"
                   color="var(--icon-color)"
                   fixedWidth
+                  className={styles.icon}
                 />
               </a>
             </li>

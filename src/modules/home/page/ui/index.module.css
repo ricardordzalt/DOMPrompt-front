@@ -1,88 +1,60 @@
-.app{
-  min-height: 100vh;
-  background-color: #fafafa;
-  width: 100%;
-  position: relative;
+.container {
+  display: flex;
+  flex: 1;
+  height: 100vh;
 }
 
-.container {
-  max-width: 900px;
-  margin: 20px auto;
-  padding: 24px;
-  font-family: "Inter", Arial, sans-serif;
-  background-color: #ffffff;
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.rightContainer {
   display: flex;
   flex-direction: column;
-}
-
-.header {
-  color: #1a73e8;
-  margin-bottom: 16px;
-  text-align: center;
-  font-size: 24px;
-  font-weight: 600;
-}
-
-.promptSection {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 24px;
-}
-
-.input {
   flex: 1;
-  padding: 12px;
-  font-size: 16px;
-  border-radius: 8px;
-  border: 1px solid #d1d1d1;
-  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.input:focus {
-  border-color: #1a73e8;
-  box-shadow: 0 0 4px rgba(26, 115, 232, 0.4);
-  outline: none;
+.contentContainer {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding-left: 3rem;
+  padding-right: 3rem;
 }
 
-.button {
-  background-color: #1a73e8;
-  color: #ffffff;
-  border: none;
-  padding: 12px 20px;
-  font-size: 16px;
-  font-weight: 500;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
+.topbarContainerDesktop {
+  padding-top: 2.75rem;
+  padding-bottom: 2.75rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
-.button:hover {
-  background-color: #1664c0;
+.topbarContainerMobile {
+  display: none;
 }
 
-.button:active {
-  transform: scale(0.98);
+.chatContainer {}
+
+.buttonsContainer {
+  padding-top: 5rem;
+  padding-bottom: 1rem;
+  padding-right: 4.5rem;
 }
 
-.button:disabled {
-  background-color: #c7d4f4;
-  cursor: not-allowed;
-}
-
-.error {
-  color: #d93025;
-  font-size: 14px;
-  margin-top: -12px;
-  margin-bottom: 12px;
-}
-
-.iframe {
-  width: 100%;
+.renderContainer {
   height: 100%;
-  border: none;
-  border-radius: 8px;
-  background-color: #f9f9f9;
+}
+
+/* Estilos para móvil */
+@media (max-width: 768px) {
+  .topbarContainerDesktop {
+    display: none;
+  }
+
+  .buttonsContainer {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    padding-right: 2.25rem;
+  }
+
+  .topbarContainerMobile {
+    display: block;
+    margin-bottom: 3rem;
+  }
 }

@@ -1,0 +1,13 @@
+.container {
+  background-color: var(--tertiary-color);
+  height: 100%;
+  width: 100%;
+  border-radius: 20px;
+}
+
+/* Estilos para móvil */
+@media (max-width: 768px) {
+  .container {
+    border-radius: 10px;
+  }
+}
