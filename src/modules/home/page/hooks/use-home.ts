@@ -24,12 +24,13 @@ const useHome = () => {
   >({
     mutationFn: getNewHtml,
   });
+  const errorMessage = error?.message;
   const renderedHTML = data?.html;
   const [prompt, setPrompt] = useState("");
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   const handleSend = async (e: React.FormEvent) => {
-    e?.preventDefault?.();
+    e.preventDefault();
     try {
       const currentHTML = getUpdatedHTML(iframeRef);
       await mutateAsync({ prompt, currentHTML });
@@ -44,7 +45,7 @@ const useHome = () => {
     setPrompt,
     isPending,
     prompt,
-    error,
+    errorMessage,
     iframeRef,
     renderedHTML,
   };

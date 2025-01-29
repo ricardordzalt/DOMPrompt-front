@@ -18,7 +18,6 @@
   border: none;
   border-radius: 5px;
   width: 100%;
-  margin-bottom: 1.5rem;
   background-color: var(--secondary-color);
 }
 
@@ -80,6 +79,11 @@
   border-radius: 10px;
 }
 
+.error {
+  color: var(--error-text);
+  font-size: 0.75rem;
+}
+
 
 /* Estilos para móvil */
 @media (max-width: 768px) {
@@ -98,7 +102,6 @@
   .chatInput {
     height: 1.75rem;
     padding: 0.5rem 0.5rem;
-    margin-bottom: 0.75rem;
     background-color: var(--secondary-color);
   }
 
