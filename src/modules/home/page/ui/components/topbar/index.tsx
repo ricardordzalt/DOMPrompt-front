@@ -13,7 +13,11 @@ const TopBar = () => {
       {/* Sidebar / Topbar */}
       <nav className={styles.navigation} aria-label="Topbar navigation">
         <div className={styles.topbarMobile}>
-          <ul className={styles.siderbarOptions} role="menu" aria-label="Quick actions">
+          <ul
+            className={styles.siderbarOptions}
+            role="menu"
+            aria-label="Quick actions"
+          >
             <li role="menuitem">
               <a href="#" aria-label="New chat">
                 <FontAwesomeIcon
@@ -46,7 +50,6 @@ const TopBar = () => {
           </a>
         </div>
 
-
         <span className={styles.topbarDesktop}>
           <p className={styles.topbarLogoTitle}>Chat Render</p>
           <a href="#logout" aria-label="Log out">
@@ -57,7 +60,6 @@ const TopBar = () => {
             />
           </a>
         </span>
-
       </nav>
     </div>
   );

@@ -4,7 +4,7 @@ import {
   faPenToSquare,
   faBorderAll,
 } from "@fortawesome/free-solid-svg-icons";
-import AppIcon from "../../../../assets/icons/app-icon.svg";
+import AppIcon from "../../../../assets/icons/app-icon.svg?react";
 
 const SideBar = () => {
   return (
