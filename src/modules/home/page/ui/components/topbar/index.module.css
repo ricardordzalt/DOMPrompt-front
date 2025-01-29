@@ -31,6 +31,9 @@
   }
 }
 
+.icon {
+  font-size: 2rem;
+}
 
 /* Estilos para móvil */
 @media (max-width: 768px) {

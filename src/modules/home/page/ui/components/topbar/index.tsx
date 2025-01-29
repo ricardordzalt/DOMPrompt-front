@@ -5,7 +5,7 @@ import {
   faBorderAll,
   faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
-import AppIcon from "../../../../assets/icons/app-icon.svg";
+import AppIcon from "../../../../assets/icons/app-icon.svg?react";
 
 const TopBar = () => {
   return (
@@ -53,8 +53,7 @@ const TopBar = () => {
             <FontAwesomeIcon
               icon={faArrowRightFromBracket}
               color="var(--icon-color)"
-              className={styles.smallIcon}
-              size="2x"
+              className={styles.icon}
             />
           </a>
         </span>
