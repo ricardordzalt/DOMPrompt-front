@@ -6,15 +6,17 @@ import ChatInput from "./components/chat-input";
 import RenderButtons from "./components/render-buttons";
 import { Render } from "./components/render";
 
-const UIHome = ({
-  handleSend,
-  setPrompt,
-  isPending,
-  prompt,
-  error,
-  iframeRef,
-  renderedHTML,
-}: any) => {
+const UIHome = (
+//   {
+//   handleSend,
+//   setPrompt,
+//   isPending,
+//   prompt,
+//   error,
+//   iframeRef,
+//   renderedHTML,
+// }: any
+) => {
   return (
     <span className={styles.container}>
       <SideBar />
