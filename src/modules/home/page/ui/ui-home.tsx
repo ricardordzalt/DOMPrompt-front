@@ -8,7 +8,7 @@ import { Render } from "./components/render";
 
 const UIHome = ({
   handleSend,
-  setPrompt,
+  onPromptChange,
   isPending,
   prompt,
   errorMessage,
@@ -29,7 +29,7 @@ const UIHome = ({
             <span className={styles.chatContainer}>
               <ChatInput
                 onSubmit={handleSend}
-                onChange={setPrompt}
+                onChange={onPromptChange}
                 value={prompt}
                 disabled={isPending}
                 errorMessage={errorMessage} 

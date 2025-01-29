@@ -40,9 +40,12 @@ const useHome = () => {
     }
   };
 
+  const onPromptChange: React.ChangeEventHandler<HTMLInputElement> = (e) =>
+    setPrompt(e?.target.value);
+
   return {
     handleSend,
-    setPrompt,
+    onPromptChange,
     isPending,
     prompt,
     errorMessage,
