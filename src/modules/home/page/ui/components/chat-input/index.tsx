@@ -2,19 +2,21 @@ import styles from "./index.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
+interface ChatInputProps {
+  onSubmit: React.FormEventHandler<HTMLFormElement>;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  value: string;
+  disabled: boolean;
+  errorMessage: string;
+}
+
 const ChatInput = ({
   onSubmit,
   onChange,
   value,
   disabled,
   errorMessage,
-}: {
-  onSubmit: React.FormEventHandler<HTMLFormElement>;
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
-  value: string;
-  disabled: boolean;
-  errorMessage: string;
-}) => {
+}: ChatInputProps) => {
   return (
     <div className={styles.container}>
       <label htmlFor="chat" className={styles.chatLabel}>

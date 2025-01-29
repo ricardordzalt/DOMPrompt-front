@@ -1,6 +1,11 @@
 import styles from "./index.module.css";
 
-const Render = ({ html, ref }: {html: string; ref: React.Ref<HTMLIFrameElement> }) => {
+interface RenderProps {
+  html: string;
+  ref: React.Ref<HTMLIFrameElement>;
+}
+
+const Render = ({ html, ref }: RenderProps) => {
   return (
     <iframe
       ref={ref}
