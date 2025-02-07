@@ -13,7 +13,7 @@ const UIHome = ({
   prompt,
   errorMessage,
   iframeRef,
-  renderedHTML,
+  render,
 }: any) => {
     return (
       <span className={styles.container}>
@@ -39,7 +39,7 @@ const UIHome = ({
               <RenderButtons />
             </span>
             <span className={styles.renderContainer}>
-              <Render html={renderedHTML} ref={iframeRef}/>
+              <Render html={render} ref={iframeRef}/>
             </span>
           </span>
         </div>

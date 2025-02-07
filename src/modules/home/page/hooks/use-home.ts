@@ -1,39 +1,39 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useRef } from "react";
-import { GetNewHtml, getNewHtml } from "../../../../api/prompt/get-new-html";
+import { GetNewRender, getNewRender } from "../../../../api/prompt/get-new-render";
 import { useMutation } from "@tanstack/react-query";
 
-const getUpdatedHTML = (
+const getUpdatedRender = (
   iframeRef: React.RefObject<HTMLIFrameElement | null>
 ) => {
-  let updatedHTML = "";
+  let updatedRender = "";
   if (iframeRef.current) {
     const iframeDoc =
       iframeRef.current.contentDocument ||
       iframeRef.current.contentWindow?.document;
-    updatedHTML = iframeDoc?.documentElement?.outerHTML || "";
+    updatedRender = iframeDoc?.documentElement?.outerHTML || "";
   }
-  return updatedHTML;
+  return updatedRender;
 };
 
 const useHome = () => {
   const { mutateAsync, isPending, error, data } = useMutation<
     any,
     Error,
-    GetNewHtml
+    GetNewRender
   >({
-    mutationFn: getNewHtml,
+    mutationFn: getNewRender,
   });
   const errorMessage = error?.message;
-  const renderedHTML = data?.html;
+  const render = data?.render;
   const [prompt, setPrompt] = useState("");
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const currentHTML = getUpdatedHTML(iframeRef);
-      await mutateAsync({ prompt, currentHTML });
+      const currentRender = getUpdatedRender(iframeRef);
+      await mutateAsync({ prompt, currentRender });
       setPrompt(""); // Reset prompt after success
     } catch (e) {
       console.error("Error occurred:", e);
@@ -50,7 +50,7 @@ const useHome = () => {
     prompt,
     errorMessage,
     iframeRef,
-    renderedHTML,
+    render,
   };
 };
 
