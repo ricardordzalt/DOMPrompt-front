@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { SwiperClass } from "swiper/react";
+
 import {
   GetNewRender,
   getNewRender,
 } from "../../../../api/prompt/get-new-render";
-import { useMutation } from "@tanstack/react-query";
 import { useCheckAuth } from "./use-check-auth";
-import { SwiperClass } from "swiper/react";
 import {
   RequestOtpCode,
   requestOtpCode,
@@ -36,44 +37,54 @@ const getUpdatedRender = (
 
 const useHome = () => {
   const swiperRef = useRef<SwiperClass>(null);
-  const onPressBack = () => {
-    swiperRef.current?.slidePrev();
-  };
+
+  // Auth check
   const queryResult = useCheckAuth();
   const {
     data: checkAuthData,
+    isSuccess: isCheckAuthSuccess,
     // error: checkAuthError,
     // isPending: isCheckAuthPending,
   } = queryResult;
-  const initialIsAuthModalOpen = !checkAuthData?.user;
+
+  // State
   const [{ prompt, email, otp, isAuthModalOpen }, setState] = useState({
     prompt: "",
     email: "",
     otp: "",
-    isAuthModalOpen: initialIsAuthModalOpen,
+    isAuthModalOpen: false,
   });
 
+  // Handlers for state
   const setPrompt = (prompt: string) =>
     setState((prev) => ({ ...prev, prompt }));
+
   const setEmail = (email: string) => setState((prev) => ({ ...prev, email }));
+
   const setOtp = (otp: string) => setState((prev) => ({ ...prev, otp }));
+
   const setIsAuthModalOpen = (isAuthModalOpen: boolean) =>
     setState((prev) => ({ ...prev, isAuthModalOpen }));
 
-  // New Render call
+  // Effects
+  useEffect(() => {
+    if (checkAuthData?.status === 200 && isCheckAuthSuccess) {
+      setIsAuthModalOpen(false);
+    } else if (checkAuthData?.status !== 200 && isCheckAuthSuccess) {
+      setIsAuthModalOpen(true);
+    }
+  }, [checkAuthData?.status, isCheckAuthSuccess]);
+
+  // Mutations
   const {
     mutateAsync: getNewRenderCall,
-    isPending,
-    error,
-    data,
+    isPending: isGetNewRenderPending,
+    error: getNewRenderError,
+    data: getNewRenderData,
   } = useMutation<any, Error, GetNewRender>({
     mutationFn: getNewRender,
   });
 
-  const errorMessage = error?.message;
-  const render = data?.render;
-
-  // Request OTP code call
   const {
     mutateAsync: requestOtpCodeCall,
     // isPending: isRequestOtpPending,
@@ -88,12 +99,11 @@ const useHome = () => {
     },
   });
 
-  // Verify OTP code call
   const {
-    mutateAsync: vrifyOtpCodeCall,
+    mutateAsync: verifyOtpCodeCall,
     // isPending: isVerifyOtpPending,
-    // error: virifyOtpError,
-    data: virifyOtpData,
+    // error: verifyOtpError,
+    data: verifyOtpData,
   } = useMutation<any, Error, VerifyOtpCode>({
     mutationFn: verifyOtpCode,
     onSuccess: (data) => {
@@ -103,7 +113,13 @@ const useHome = () => {
     },
   });
 
+  // Refs
   const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  // Handlers
+  const onPressBack = () => {
+    swiperRef.current?.slidePrev();
+  };
 
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -111,19 +127,19 @@ const useHome = () => {
       const currentRender = getUpdatedRender(iframeRef);
       await getNewRenderCall({ prompt, currentRender });
       setPrompt(""); // Reset prompt after success
-    } catch (e) {
-      console.error("Error occurred:", e);
+    } catch (err) {
+      console.error("Error occurred:", err);
     }
   };
 
   const onChangePrompt: React.ChangeEventHandler<HTMLInputElement> = (e) =>
-    setPrompt(e?.target.value);
+    setPrompt(e.target.value);
 
   const onChangeEmail: React.ChangeEventHandler<HTMLInputElement> = (e) =>
-    setEmail(e?.target.value);
+    setEmail(e.target.value);
 
   const onChangeOtp: React.ChangeEventHandler<HTMLInputElement> = (e) =>
-    setOtp(e?.target.value);
+    setOtp(e.target.value);
 
   const onSubmitEmail = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -132,27 +148,30 @@ const useHome = () => {
 
   const onSubmitOtp = async (e: React.FormEvent) => {
     e.preventDefault();
-    await vrifyOtpCodeCall({ email, otpCode: otp });
+    await verifyOtpCodeCall({ email, otpCode: otp });
   };
 
   const onClickResendOtp = () => {};
 
+  // Computed / Derived states
   const submitEmailDisabled = !isValidEmail(email);
   const submitOtpDisabled = otp.length < 6;
+  const errorMessage = getNewRenderError?.message;
+  const render = getNewRenderData?.render;
 
   const emailErrorMessage = (() => {
-    if (!!email && submitEmailDisabled) {
+    if (email && submitEmailDisabled) {
       return "Invalid e-mail";
     }
     return;
   })();
 
   const otpErrorMessage = (() => {
-    if (!!otp && submitOtpDisabled) {
+    if (otp && submitOtpDisabled) {
       return "Invalid code";
     }
-    if (virifyOtpData?.error && typeof virifyOtpData?.error === "string") {
-      return virifyOtpData?.error;
+    if (verifyOtpData?.error && typeof verifyOtpData.error === "string") {
+      return verifyOtpData.error;
     }
     return;
   })();
@@ -160,7 +179,7 @@ const useHome = () => {
   return {
     handleSend,
     onChangePrompt,
-    isPending,
+    isGetNewRenderPending,
     prompt,
     errorMessage,
     iframeRef,

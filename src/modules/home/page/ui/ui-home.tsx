@@ -10,7 +10,7 @@ import { AuthModal } from "./components/auth-modal";
 const UIHome = ({
   handleSend,
   onChangePrompt,
-  isPending,
+  isGetNewRenderPending,
   prompt,
   errorMessage,
   iframeRef,
@@ -47,8 +47,8 @@ const UIHome = ({
                 onSubmit={handleSend}
                 onChange={onChangePrompt}
                 value={prompt}
-                disabled={isPending}
-                buttonDisabled={isPending}
+                disabled={isGetNewRenderPending}
+                buttonDisabled={isGetNewRenderPending}
                 errorMessage={errorMessage}
               />
             </span>

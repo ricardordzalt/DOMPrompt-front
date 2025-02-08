@@ -3,13 +3,19 @@ type FetchParams = Record<string, string | number | boolean>;
 type HeadersObject = Record<string, string>;
 
 // Fetch GET
-export const fetchGet = async (url: string, params: FetchParams = {}, token?: string) => {
+export const fetchGet = async (
+  url: string,
+  params: FetchParams = {},
+  token?: string
+) => {
   try {
-    const queryString = new URLSearchParams(params as Record<string, string>).toString();
+    const queryString = new URLSearchParams(
+      params as Record<string, string>
+    ).toString();
     const fullUrl = queryString ? `${url}?${queryString}` : url;
 
     const headers: HeadersObject = {
-      Accept: 'application/json',
+      Accept: "application/json",
     };
 
     if (token) {
@@ -17,16 +23,18 @@ export const fetchGet = async (url: string, params: FetchParams = {}, token?: st
     }
 
     const response = await fetch(fullUrl, {
-      method: 'GET',
+      method: "GET",
       headers,
-      credentials: "include"
+      credentials: "include",
     });
 
     const json = await response.json();
     return json;
   } catch (error) {
-    console.error('🚀 ~ fetchGet ~ error:', error);
-    throw new Error(`An error occurred during fetch GET: ${(error as Error).message}`);
+    console.error("🚀 ~ fetchGet ~ error:", error);
+    throw new Error(
+      `An error occurred during fetch GET: ${(error as Error).message}`
+    );
   }
 };
 
@@ -39,40 +47,49 @@ export const fetchPost = async (
 ) => {
   try {
     const headers: HeadersObject = {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      "Content-Type": "application/json",
     };
 
     if (token) {
       headers.Authorization = `Bearer ${token}`;
     }
 
-    const queryString = new URLSearchParams(params as Record<string, string>).toString();
+    const queryString = new URLSearchParams(
+      params as Record<string, string>
+    ).toString();
     const fullUrl = queryString ? `${url}?${queryString}` : url;
 
     const response = await fetch(fullUrl, {
-      method: 'POST',
+      method: "POST",
       headers,
       body: JSON.stringify(body),
+      credentials: "include",
     });
 
     const json = await response.json();
     return json;
   } catch (error) {
-    console.error('🚀 ~ fetchPost ~ error:', error);
-    throw new Error(`An error occurred during fetch POST: ${(error as Error).message}`);
+    console.error("🚀 ~ fetchPost ~ error:", error);
+    throw new Error(
+      `An error occurred during fetch POST: ${(error as Error).message}`
+    );
   }
 };
 
 // Fetch POST FormData
-export const fetchPostFormData = async (url: string, formData: FormData, token?: string) => {
+export const fetchPostFormData = async (
+  url: string,
+  formData: FormData,
+  token?: string
+) => {
   try {
     const headers: HeadersObject = {};
     if (token) {
       headers.Authorization = `Bearer ${token}`;
     }
     const response = await fetch(url, {
-      method: 'POST',
+      method: "POST",
       headers,
       body: formData,
     });
@@ -80,8 +97,10 @@ export const fetchPostFormData = async (url: string, formData: FormData, token?:
     const json = await response.json();
     return json;
   } catch (error) {
-    console.error('🚀 ~ fetchPostFormData ~ error:', error);
-    throw new Error(`An error occurred during fetch POST: ${(error as Error).message}`);
+    console.error("🚀 ~ fetchPostFormData ~ error:", error);
+    throw new Error(
+      `An error occurred during fetch POST: ${(error as Error).message}`
+    );
   }
 };
 
@@ -89,8 +108,8 @@ export const fetchPostFormData = async (url: string, formData: FormData, token?:
 export const fetchPut = async (url: string, body: any, token?: string) => {
   try {
     const headers: HeadersObject = {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      "Content-Type": "application/json",
     };
 
     if (token) {
@@ -98,7 +117,7 @@ export const fetchPut = async (url: string, body: any, token?: string) => {
     }
 
     const response = await fetch(url, {
-      method: 'PUT',
+      method: "PUT",
       headers,
       body: JSON.stringify(body),
     });
@@ -106,8 +125,10 @@ export const fetchPut = async (url: string, body: any, token?: string) => {
     const json = await response.json();
     return json;
   } catch (error) {
-    console.error('🚀 ~ fetchPut ~ error:', error);
-    throw new Error(`An error occurred during fetch PUT: ${(error as Error).message}`);
+    console.error("🚀 ~ fetchPut ~ error:", error);
+    throw new Error(
+      `An error occurred during fetch PUT: ${(error as Error).message}`
+    );
   }
 };
 
@@ -115,8 +136,8 @@ export const fetchPut = async (url: string, body: any, token?: string) => {
 export const fetchPatch = async (url: string, body: any, token?: string) => {
   try {
     const headers: HeadersObject = {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      "Content-Type": "application/json",
     };
 
     if (token) {
@@ -124,7 +145,7 @@ export const fetchPatch = async (url: string, body: any, token?: string) => {
     }
 
     const response = await fetch(url, {
-      method: 'PATCH',
+      method: "PATCH",
       headers,
       body: JSON.stringify(body),
     });
@@ -132,13 +153,19 @@ export const fetchPatch = async (url: string, body: any, token?: string) => {
     const json = await response.json();
     return json;
   } catch (error) {
-    console.error('🚀 ~ fetchPatch ~ error:', error);
-    throw new Error(`An error occurred during fetch PATCH: ${(error as Error).message}`);
+    console.error("🚀 ~ fetchPatch ~ error:", error);
+    throw new Error(
+      `An error occurred during fetch PATCH: ${(error as Error).message}`
+    );
   }
 };
 
 // Fetch PATCH FormData
-export const fetchPatchFormData = async (url: string, formData: FormData, token?: string) => {
+export const fetchPatchFormData = async (
+  url: string,
+  formData: FormData,
+  token?: string
+) => {
   try {
     const headers: HeadersObject = {};
     if (token) {
@@ -146,7 +173,7 @@ export const fetchPatchFormData = async (url: string, formData: FormData, token?
     }
 
     const response = await fetch(url, {
-      method: 'PATCH',
+      method: "PATCH",
       headers,
       body: formData,
     });
@@ -154,19 +181,27 @@ export const fetchPatchFormData = async (url: string, formData: FormData, token?
     const json = await response.json();
     return json;
   } catch (error) {
-    console.error('🚀 ~ fetchPatchFormData ~ error:', error);
-    throw new Error(`An error occurred during fetch PATCH: ${(error as Error).message}`);
+    console.error("🚀 ~ fetchPatchFormData ~ error:", error);
+    throw new Error(
+      `An error occurred during fetch PATCH: ${(error as Error).message}`
+    );
   }
 };
 
 // Fetch DELETE
-export const fetchDelete = async (url: string, params: FetchParams = {}, token?: string) => {
+export const fetchDelete = async (
+  url: string,
+  params: FetchParams = {},
+  token?: string
+) => {
   try {
-    const queryString = new URLSearchParams(params as Record<string, string>).toString();
+    const queryString = new URLSearchParams(
+      params as Record<string, string>
+    ).toString();
     const fullUrl = queryString ? `${url}?${queryString}` : url;
 
     const headers: HeadersObject = {
-      Accept: 'application/json',
+      Accept: "application/json",
     };
 
     if (token) {
@@ -174,7 +209,7 @@ export const fetchDelete = async (url: string, params: FetchParams = {}, token?:
     }
 
     const response = await fetch(fullUrl, {
-      method: 'DELETE',
+      method: "DELETE",
       headers,
     });
 
@@ -185,7 +220,9 @@ export const fetchDelete = async (url: string, params: FetchParams = {}, token?:
     const json = await response.json();
     return json;
   } catch (error) {
-    console.error('🚀 ~ fetchDelete ~ error:', error);
-    throw new Error(`An error occurred during fetch DELETE: ${(error as Error).message}`);
+    console.error("🚀 ~ fetchDelete ~ error:", error);
+    throw new Error(
+      `An error occurred during fetch DELETE: ${(error as Error).message}`
+    );
   }
 };
