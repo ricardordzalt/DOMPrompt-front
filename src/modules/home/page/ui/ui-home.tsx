@@ -5,17 +5,30 @@ import { TopBar } from "./components/topbar";
 import ChatInput from "./components/chat-input";
 import RenderButtons from "./components/render-buttons";
 import { Render } from "./components/render";
+import { AuthModal } from "./components/auth-modal";
 
 const UIHome = ({
   handleSend,
-  onPromptChange,
+  onChangePrompt,
   isPending,
   prompt,
   errorMessage,
   iframeRef,
   render,
+  isAuthModalOpen,
+  onSubmitEmail,
+  onSubmitOtp,
+  onClickResendOtp,
+  onPressBack,
+  email,
+  onChangeEmail,
+  otp,
+  onChangeOtp,
+  submitEmailDisabled,submitOtpDisabled,
+  swiperRef,
 }: any) => {
-    return (
+  return (
+    <>
       <span className={styles.container}>
         <SideBar />
         <div className={styles.rightContainer}>
@@ -29,22 +42,38 @@ const UIHome = ({
             <span className={styles.chatContainer}>
               <ChatInput
                 onSubmit={handleSend}
-                onChange={onPromptChange}
+                onChange={onChangePrompt}
                 value={prompt}
                 disabled={isPending}
-                errorMessage={errorMessage} 
+                buttonDisabled={isPending}
+                errorMessage={errorMessage}
               />
             </span>
             <span className={styles.buttonsContainer}>
               <RenderButtons />
             </span>
             <span className={styles.renderContainer}>
-              <Render html={render} ref={iframeRef}/>
+              <Render html={render} ref={iframeRef} />
             </span>
           </span>
         </div>
       </span>
-    );
-  };
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onSubmitEmail={onSubmitEmail}
+        onSubmitOtp={onSubmitOtp}
+        onClickResendOtp={onClickResendOtp}
+        onPressBack={onPressBack}
+        email={email}
+        onChangeEmail={onChangeEmail}
+        otp={otp}
+        onChangeOtp={onChangeOtp}
+        submitEmailDisabled={submitEmailDisabled}
+        submitOtpDisabled={submitOtpDisabled}
+        swiperRef={swiperRef}
+      />
+    </>
+  );
+};
 
 export { UIHome };

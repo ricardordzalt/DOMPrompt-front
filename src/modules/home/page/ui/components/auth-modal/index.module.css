@@ -1,0 +1,112 @@
+.authModalOverlay {
+  position: fixed;
+  inset: 0px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.authModal {
+  position: absolute;
+  inset: 40px;
+  background-color: var(--white-color);
+  overflow: auto;
+  outline: none;
+  width: 32rem;
+  height: 40rem;
+  margin: auto;
+  border: 1px solid var(--primary-color);
+  border-radius: 20px;
+}
+
+.modelContentContainer {
+  padding: 2.5rem;
+  padding-top: 1.25rem;
+}
+
+.modelHeaderContainer {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  max-width: 5rem;
+}
+
+.headerTitle {
+  margin-left: 0.75rem;
+  color: var(--tertiary-text);
+  font-size: 1rem;
+}
+
+.title {
+  text-align: center;
+  margin-top: 2.5rem;
+  color: var(--primary-text);
+  margin-bottom: 3.75rem;
+  font-size: 1.25rem;
+}
+
+.footerTitle {
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: var(--primary-text);
+}
+
+.resendButton {
+  background-color: transparent;
+  border: none;
+  text-decoration: underline;
+  font-size: 1rem;
+  color: var(--tertiary-text);
+  cursor: pointer;
+}
+
+.authSwiper {
+  height: 100%;
+  width: 100%;
+}
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Estilos para móvil */
+@media (max-width: 768px) {
+  .authModal {
+    overflow: auto;
+    outline: none;
+    width: 18rem;
+    height: 32rem;
+    margin: auto;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+  }
+
+  .modelContentContainer {
+    padding: 1.25rem;
+  }
+
+  .headerTitle {
+    margin-left: 0.5rem;
+    color: var(--tertiary-text);
+    font-size: 0.75rem;
+  }
+
+  .title {
+    text-align: center;
+    margin-top: 2.5rem;
+    margin-bottom: 3.75rem;
+    font-size: 0.75rem;
+  }
+
+  .footerTitle {
+    font-size: 0.6rem;
+  }
+  
+  .resendButton {
+    font-size: 0.6rem;
+  }
+
+  .icon {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+}

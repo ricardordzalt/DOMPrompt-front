@@ -6,8 +6,12 @@ interface ChatInputProps {
   onSubmit: React.FormEventHandler<HTMLFormElement>;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   value: string;
-  disabled: boolean;
+  disabled?: boolean;
+  buttonDisabled?: boolean;
   errorMessage: string;
+  placeholder?: string;
+  label?: string;
+  maxLength?: number;
 }
 
 const ChatInput = ({
@@ -15,29 +19,34 @@ const ChatInput = ({
   onChange,
   value,
   disabled,
+  buttonDisabled,
   errorMessage,
+  placeholder = "Message ChatRender",
+  label = "Let's create!",
+  maxLength,
 }: ChatInputProps) => {
   return (
     <div className={styles.container}>
       <label htmlFor="chat" className={styles.chatLabel}>
-        Let's create!
+        {label}
       </label>
       <form className={styles.inputContainer} onSubmit={onSubmit}>
         <input
           type="text"
           id="chat"
           name="chat"
-          placeholder="Message ChatRender"
+          placeholder={placeholder}
           className={styles.chatInput}
           value={value}
           onChange={onChange}
           disabled={disabled}
+          maxLength={maxLength}
         />
         <span className={styles.buttonContainer}>
           <button
             type="submit"
             className={styles.submitButton}
-            disabled={disabled}
+            disabled={buttonDisabled}
           >
             <FontAwesomeIcon
               icon={faArrowRight}
