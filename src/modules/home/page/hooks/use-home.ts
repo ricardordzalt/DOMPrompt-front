@@ -31,8 +31,8 @@ const useHome = () => {
   const queryResult = useCheckAuth();
   const {
     data: checkAuthData,
-    error: checkAuthError,
-    isPending: isCheckAuthPending,
+    // error: checkAuthError,
+    // isPending: isCheckAuthPending,
   } = queryResult;
   const initialIsAuthModalOpen = !checkAuthData?.user;
   const { mutateAsync, isPending, error, data } = useMutation<
@@ -55,10 +55,13 @@ const useHome = () => {
   const setEmail = (email: string) => setState((prev) => ({ ...prev, email }));
   const setOtp = (otp: string) => setState((prev) => ({ ...prev, otp }));
 
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(
+  const [
+    isAuthModalOpen, 
+    // setIsAuthModalOpen
+  ] = useState(
     initialIsAuthModalOpen
   );
-  const closeModal = () => setIsAuthModalOpen(false);
+  // const closeModal = () => setIsAuthModalOpen(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   const handleSend = async (e: React.FormEvent) => {
