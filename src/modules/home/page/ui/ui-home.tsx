@@ -24,7 +24,10 @@ const UIHome = ({
   onChangeEmail,
   otp,
   onChangeOtp,
-  submitEmailDisabled,submitOtpDisabled,
+  submitEmailDisabled,
+  submitOtpDisabled,
+  emailErrorMessage,
+  otpErrorMessage,
   swiperRef,
 }: any) => {
   return (
@@ -70,6 +73,8 @@ const UIHome = ({
         onChangeOtp={onChangeOtp}
         submitEmailDisabled={submitEmailDisabled}
         submitOtpDisabled={submitOtpDisabled}
+        emailErrorMessage={emailErrorMessage}
+        otpErrorMessage={otpErrorMessage}
         swiperRef={swiperRef}
       />
     </>

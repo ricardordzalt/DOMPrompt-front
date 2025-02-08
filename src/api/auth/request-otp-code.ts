@@ -6,7 +6,7 @@ export interface RequestOtpCode {
 }
 
 export const requestOtpCode = async ({ email }: RequestOtpCode) => {
-  const response = await fetchPost(`${API_URL}/render/get-new-render`, {
+  const response = await fetchPost(`${API_URL}/auth/request-otp`, {
     email,
   });
   return response;

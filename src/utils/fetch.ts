@@ -19,6 +19,7 @@ export const fetchGet = async (url: string, params: FetchParams = {}, token?: st
     const response = await fetch(fullUrl, {
       method: 'GET',
       headers,
+      credentials: "include"
     });
 
     const json = await response.json();

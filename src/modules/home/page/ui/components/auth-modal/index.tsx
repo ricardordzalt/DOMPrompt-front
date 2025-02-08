@@ -24,6 +24,8 @@ interface AuthModalProps {
   onChangeOtp: VoidFunction;
   submitEmailDisabled: boolean;
   submitOtpDisabled: boolean;
+  emailErrorMessage: string;
+  otpErrorMessage: string;
   swiperRef: RefObject<SwiperClass>;
 }
 
@@ -32,6 +34,7 @@ interface EmailSlideProps {
   onChangeEmail: VoidFunction;
   onSubmitEmail: VoidFunction;
   submitEmailDisabled: boolean;
+  emailErrorMessage: string;
 }
 
 interface OtpSlideProps {
@@ -41,6 +44,7 @@ interface OtpSlideProps {
   onClickResendOtp: VoidFunction;
   onPressBack: VoidFunction;
   submitOtpDisabled: boolean;
+  otpErrorMessage: string;
 }
 
 const AuthModal = ({
@@ -53,7 +57,10 @@ const AuthModal = ({
   onChangeEmail,
   otp,
   onChangeOtp,
-  submitEmailDisabled,submitOtpDisabled,
+  submitEmailDisabled,
+  submitOtpDisabled,
+  emailErrorMessage,
+  otpErrorMessage,
   swiperRef,
 }: AuthModalProps) => {
   return (
@@ -79,6 +86,7 @@ const AuthModal = ({
             onChangeEmail={onChangeEmail}
             onSubmitEmail={onSubmitEmail}
             submitEmailDisabled={submitEmailDisabled}
+            emailErrorMessage={emailErrorMessage}
           />
         </SwiperSlide>
         <SwiperSlide>
@@ -89,6 +97,7 @@ const AuthModal = ({
             onClickResendOtp={onClickResendOtp}
             onPressBack={onPressBack}
             submitOtpDisabled={submitOtpDisabled}
+            otpErrorMessage={otpErrorMessage}
           />
         </SwiperSlide>
       </Swiper>
@@ -99,7 +108,9 @@ const AuthModal = ({
 const EmailSlide = ({
   email,
   onChangeEmail,
-  onSubmitEmail,submitEmailDisabled
+  onSubmitEmail,
+  submitEmailDisabled,
+  emailErrorMessage,
 }: EmailSlideProps) => {
   return (
     <div className="step">
@@ -111,7 +122,7 @@ const EmailSlide = ({
           value={email}
           disabled={false}
           buttonDisabled={submitEmailDisabled}
-          errorMessage={""}
+          errorMessage={emailErrorMessage}
           placeholder="Enter your e-mail adress"
           label="E-mail"
         />
@@ -125,7 +136,9 @@ const OtpSlide = ({
   onChangeOtp,
   onSubmitOtp,
   onClickResendOtp,
-  onPressBack,submitOtpDisabled
+  onPressBack,
+  submitOtpDisabled,
+  otpErrorMessage,
 }: OtpSlideProps) => {
   return (
     <div className="step">
@@ -150,7 +163,7 @@ const OtpSlide = ({
           value={otp}
           disabled={false}
           buttonDisabled={submitOtpDisabled}
-          errorMessage={""}
+          errorMessage={otpErrorMessage}
           placeholder="xxxxxx"
           label="Enter your OTP code"
           maxLength={6}

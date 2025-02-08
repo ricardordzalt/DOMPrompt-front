@@ -1,13 +1,13 @@
 import { API_URL } from "../../constants/api";
 import { fetchPost } from "../../utils/fetch";
 
-export interface RequestOtpCode {
+export interface VerifyOtpCode {
   email: string;
   otpCode: string;
 }
 
-export const requestOtpCode = async ({ email, otpCode }: RequestOtpCode) => {
-  const response = await fetchPost(`${API_URL}/render/get-new-render`, {
+export const verifyOtpCode = async ({ email, otpCode }: VerifyOtpCode) => {
+  const response = await fetchPost(`${API_URL}/auth/verify-otp`, {
     email,
     otpCode,
   });
