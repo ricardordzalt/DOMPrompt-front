@@ -5,6 +5,7 @@ const Routes = () => {
   return (
     <ReactRouter>
       <ReactRoute path="/" element={<Home />} />
+      <ReactRoute path="/notexistingpage" element={<></>} />
     </ReactRouter>
   );
 };

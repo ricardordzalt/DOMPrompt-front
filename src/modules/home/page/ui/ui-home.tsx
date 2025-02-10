@@ -6,9 +6,10 @@ import ChatInput from "./components/chat-input";
 import RenderButtons from "./components/render-buttons";
 import { Render } from "./components/render";
 import { AuthModal } from "./components/auth-modal";
+import Loader from "../../../../common/components/loader";
 
 const UIHome = ({
-  handleSendRender,
+  onSubmitPrompt,
   onChangePrompt,
   isGetNewRenderPending,
   prompt,
@@ -32,23 +33,41 @@ const UIHome = ({
   isVerifyOtpPending,
   onClickCopyRender,
   onClickSaveRender,
+  onClickNewRender,
+  onClickApplications,
+  onClickLogout,
+  screenLoading,
   swiperRef,
 }: any) => {
+  if (screenLoading) {
+    return <Loader />;
+  }
   return (
     <>
       <span className={styles.container}>
-        <SideBar />
+        <SideBar
+          onClickNewRender={onClickNewRender}
+          onClickApplications={onClickApplications}
+        />
         <div className={styles.rightContainer}>
           <span className={styles.topbarContainerMobile}>
-            <TopBar />
+            <TopBar
+              onClickNewRender={onClickNewRender}
+              onClickApplications={onClickApplications}
+              onClickLogout={onClickLogout}
+            />
           </span>
           <span className={styles.contentContainer}>
             <span className={styles.topbarContainerDesktop}>
-              <TopBar />
+              <TopBar
+                onClickNewRender={onClickNewRender}
+                onClickApplications={onClickApplications}
+                onClickLogout={onClickLogout}
+              />
             </span>
             <span className={styles.chatContainer}>
               <ChatInput
-                onSubmit={handleSendRender}
+                onSubmit={onSubmitPrompt}
                 onChange={onChangePrompt}
                 value={prompt}
                 disabled={isGetNewRenderPending}

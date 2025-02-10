@@ -13,7 +13,12 @@ const RenderButtons = ({
 }: RenderButtonsProps) => {
   return (
     <div className={styles.container}>
-      <button className={styles.button} onClick={onClickCopyRender}>
+      <button
+        className={styles.button}
+        onClick={onClickCopyRender}
+        title="Copy to clipboard"
+        aria-label="Copy this render to clipboard"
+      >
         <FontAwesomeIcon
           icon={faCopy}
           color="var(--icon-color)"
@@ -21,7 +26,12 @@ const RenderButtons = ({
           className={`${styles.icon} ${styles.firstIcon}`}
         />
       </button>
-      <button className={styles.button} onClick={onClickSaveRender}>
+      <button
+        className={styles.button}
+        onClick={onClickSaveRender}
+        title="Save render"
+        aria-label="Save this render on my renders"
+      >
         <FontAwesomeIcon
           icon={faFloppyDisk}
           color="var(--icon-color)"

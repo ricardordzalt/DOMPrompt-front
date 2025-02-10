@@ -7,7 +7,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import AppIcon from "../../../../assets/icons/app-icon.svg?react";
 
-const TopBar = () => {
+interface TopBarProps {
+  onClickNewRender: VoidFunction;
+  onClickApplications: VoidFunction;
+  onClickLogout: VoidFunction;
+}
+
+const TopBar = ({ onClickNewRender, onClickApplications, onClickLogout }: TopBarProps) => {
   return (
     <div className={styles.container}>
       {/* Sidebar / Topbar */}
@@ -19,46 +25,66 @@ const TopBar = () => {
             aria-label="Quick actions"
           >
             <li role="menuitem">
-              <a href="#" aria-label="New chat">
+              <button
+                className={styles.topbarButton}
+                onClick={onClickNewRender}
+                title="New render"
+                aria-label="Start a new render"
+              >
                 <FontAwesomeIcon
                   icon={faPenToSquare}
                   color="var(--icon-color)"
                   className={`${styles.smallIcon} ${styles.firstSmallIcon}`}
                 />
-              </a>
+              </button>
             </li>
             <li role="menuitem">
-              <a href="#" aria-label="My apps">
+              <button
+                className={styles.topbarButton}
+                onClick={onClickApplications}
+                title="My applications"
+                aria-label="Display a modal with saved applications"
+              >
                 <FontAwesomeIcon
                   icon={faBorderAll}
                   color="var(--icon-color)"
                   className={styles.smallIcon}
                 />
-              </a>
+              </button>
             </li>
           </ul>
           <span className={styles.topbarLogoContainer} aria-label="Home">
             <AppIcon style={{ width: "1.25rem", height: "1.25rem" }} />
             <p className={styles.topbarLogoTitle}>Chat Render</p>
           </span>
-          <a href="#logout" aria-label="Log out">
+          <button
+            className={styles.topbarButton}
+            onClick={onClickLogout}
+            title="Log out"
+            aria-label="Log out user from application"
+          >
             <FontAwesomeIcon
               icon={faArrowRightFromBracket}
               color="var(--icon-color)"
               className={styles.smallIcon}
             />
-          </a>
+          </button>
         </div>
 
         <span className={styles.topbarDesktop}>
           <p className={styles.topbarLogoTitle}>Chat Render</p>
-          <a href="#logout" aria-label="Log out">
+          <button
+            className={styles.topbarButton}
+            onClick={onClickLogout}
+            title="Log out"
+            aria-label="Log out user from application"
+          >
             <FontAwesomeIcon
               icon={faArrowRightFromBracket}
               color="var(--icon-color)"
               className={styles.icon}
             />
-          </a>
+          </button>
         </span>
       </nav>
     </div>

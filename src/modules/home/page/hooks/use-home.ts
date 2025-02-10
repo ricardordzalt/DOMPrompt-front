@@ -16,6 +16,8 @@ import {
   VerifyOtpCode,
   verifyOtpCode,
 } from "../../../../api/auth/verify-otp-code";
+import { useNavigate } from "react-router";
+import { logOut } from "../../../../api/auth/log-out";
 
 const isValidEmail = (email: string): boolean => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -37,6 +39,7 @@ const getUpdatedRender = (
 
 const useHome = () => {
   const swiperRef = useRef<SwiperClass>(null);
+  const navigate = useNavigate();
 
   // Auth check
   const queryResult = useCheckAuth();
@@ -90,6 +93,9 @@ const useHome = () => {
       if (getNewRenderData?.status === 200) {
         setRender(getNewRenderData?.render);
       }
+      if (getNewRenderData?.status === 401) {
+        setIsAuthModalOpen(true);
+      }
     },
   });
 
@@ -117,6 +123,23 @@ const useHome = () => {
     onSuccess: (data) => {
       if (data?.status === 200) {
         setIsAuthModalOpen(false);
+        setEmail("");
+        setOtp("");
+      }
+    },
+  });
+
+
+  const {
+    mutateAsync: logOutCall,
+    isPending: isLogOutPending,
+    // error: logOutError,
+    // data: logOutData,
+  } = useMutation<any, Error>({
+    mutationFn: logOut,
+    onSuccess: (data) => {
+      if (data?.status === 200) {
+        setIsAuthModalOpen(true);
       }
     },
   });
@@ -129,7 +152,7 @@ const useHome = () => {
     swiperRef.current?.slidePrev();
   };
 
-  const handleSendRender = async (e: React.FormEvent) => {
+  const onSubmitPrompt = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const currentRender = getUpdatedRender(iframeRef);
@@ -160,17 +183,32 @@ const useHome = () => {
   };
 
   const onClickResendOtp = () => {};
-  const onClickCopyRender = () => {
+  const onClickCopyRender: React.ChangeEventHandler<HTMLInputElement> = () => {
     // Copy the text inside the text field
     const clipboadText = getUpdatedRender(iframeRef);
     navigator.clipboard.writeText(clipboadText);
   };
   const onClickSaveRender = () => {};
 
+  const onClickNewRender= () => {
+    // Forces redirect to this page while reseting the component
+    navigate("/notexistingpage", { replace: true });
+    setTimeout(() => navigate("/", { replace: true }), 1);
+  }
+  
+  const onClickApplications= () => {
+  }
+
+  const onClickLogout: React.ChangeEventHandler<HTMLInputElement> = async (e) => {
+    e.preventDefault();
+    await logOutCall();
+  };
+
   // Computed / Derived states
   const submitEmailDisabled = !isValidEmail(email);
   const submitOtpDisabled = otp.length < 6;
   const errorMessage = getNewRenderError?.message;
+  const screenLoading = isLogOutPending;
 
   const emailErrorMessage = (() => {
     if (email && submitEmailDisabled) {
@@ -190,7 +228,7 @@ const useHome = () => {
   })();
 
   return {
-    handleSendRender,
+    onSubmitPrompt,
     onChangePrompt,
     isGetNewRenderPending,
     prompt,
@@ -214,6 +252,10 @@ const useHome = () => {
     isVerifyOtpPending,
     onClickCopyRender,
     onClickSaveRender,
+    onClickNewRender,
+    onClickApplications,
+    onClickLogout,
+    screenLoading,
     swiperRef,
   };
 };
