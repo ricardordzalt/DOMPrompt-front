@@ -18,7 +18,7 @@ interface AuthModalProps {
   onSubmitEmail: VoidFunction;
   onSubmitOtp: VoidFunction;
   onClickResendOtp: VoidFunction;
-  onPressBack: VoidFunction;
+  onClickBackAuth: VoidFunction;
   email: string;
   onChangeEmail: VoidFunction;
   otp: string;
@@ -29,7 +29,7 @@ interface AuthModalProps {
   otpErrorMessage: string;
   isRequestOtpPending: boolean;
   isVerifyOtpPending: boolean;
-  swiperRef: RefObject<SwiperClass>;
+  authSwiperRef: RefObject<SwiperClass>;
 }
 
 interface EmailSlideProps {
@@ -46,7 +46,7 @@ interface OtpSlideProps {
   onChangeOtp: VoidFunction;
   onSubmitOtp: VoidFunction;
   onClickResendOtp: VoidFunction;
-  onPressBack: VoidFunction;
+  onClickBackAuth: VoidFunction;
   submitOtpDisabled: boolean;
   otpErrorMessage: string;
   isLoading: boolean;
@@ -57,7 +57,7 @@ const AuthModal = ({
   onSubmitEmail,
   onSubmitOtp,
   onClickResendOtp,
-  onPressBack,
+  onClickBackAuth,
   email,
   onChangeEmail,
   otp,
@@ -68,11 +68,11 @@ const AuthModal = ({
   otpErrorMessage,
   isRequestOtpPending,
   isVerifyOtpPending,
-  swiperRef,
+  authSwiperRef,
 }: AuthModalProps) => {
   return (
     <Modal
-      contentLabel="Example Modal"
+      contentLabel="Authentication modal"
       className={styles.authModal}
       overlayClassName={styles.authModalOverlay}
       isOpen={isOpen}
@@ -85,7 +85,7 @@ const AuthModal = ({
         slidesPerView={1}
         className={styles.authSwiper}
         allowTouchMove={false}
-        onSwiper={(swiper) => (swiperRef.current = swiper)}
+        onSwiper={(swiper) => (authSwiperRef.current = swiper)}
       >
         <SwiperSlide>
           <EmailSlide
@@ -103,7 +103,7 @@ const AuthModal = ({
             onChangeOtp={onChangeOtp}
             onSubmitOtp={onSubmitOtp}
             onClickResendOtp={onClickResendOtp}
-            onPressBack={onPressBack}
+            onClickBackAuth={onClickBackAuth}
             submitOtpDisabled={submitOtpDisabled}
             otpErrorMessage={otpErrorMessage}
             isLoading={isVerifyOtpPending}
@@ -152,7 +152,7 @@ const OtpSlide = ({
   onChangeOtp,
   onSubmitOtp,
   onClickResendOtp,
-  onPressBack,
+  onClickBackAuth,
   submitOtpDisabled,
   otpErrorMessage,
   isLoading,
@@ -170,7 +170,7 @@ const OtpSlide = ({
       <span
         role="button"
         className={styles.modelHeaderContainer}
-        onClick={onPressBack}
+        onClick={onClickBackAuth}
       >
         <FontAwesomeIcon
           icon={faArrowLeft}

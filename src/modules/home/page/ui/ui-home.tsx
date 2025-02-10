@@ -7,6 +7,7 @@ import RenderButtons from "./components/render-buttons";
 import { Render } from "./components/render";
 import { AuthModal } from "./components/auth-modal";
 import Loader from "../../../../common/components/loader";
+import { MyRendersModal } from "./components/my-renders-modal";
 
 const UIHome = ({
   onSubmitPrompt,
@@ -20,7 +21,7 @@ const UIHome = ({
   onSubmitEmail,
   onSubmitOtp,
   onClickResendOtp,
-  onPressBack,
+  onClickBackAuth,
   email,
   onChangeEmail,
   otp,
@@ -34,10 +35,16 @@ const UIHome = ({
   onClickCopyRender,
   onClickSaveRender,
   onClickNewRender,
-  onClickRenders,
+  onClickMyRenders,
   onClickLogout,
   screenLoading,
-  swiperRef,
+  isMyRendersModalOpen,
+  onClickBackMyRenders,
+  isGetMyRendersPending,
+  myRenders,
+  authSwiperRef,
+  onClickRender,
+  myRendersSwiperRef,
 }: any) => {
   if (screenLoading) {
     return <Loader />;
@@ -47,13 +54,13 @@ const UIHome = ({
       <span className={styles.container}>
         <SideBar
           onClickNewRender={onClickNewRender}
-          onClickRenders={onClickRenders}
+          onClickMyRenders={onClickMyRenders}
         />
         <div className={styles.rightContainer}>
           <span className={styles.topbarContainerMobile}>
             <TopBar
               onClickNewRender={onClickNewRender}
-              onClickRenders={onClickRenders}
+              onClickMyRenders={onClickMyRenders}
               onClickLogout={onClickLogout}
             />
           </span>
@@ -61,7 +68,7 @@ const UIHome = ({
             <span className={styles.topbarContainerDesktop}>
               <TopBar
                 onClickNewRender={onClickNewRender}
-                onClickRenders={onClickRenders}
+                onClickMyRenders={onClickMyRenders}
                 onClickLogout={onClickLogout}
               />
             </span>
@@ -96,7 +103,7 @@ const UIHome = ({
         onSubmitEmail={onSubmitEmail}
         onSubmitOtp={onSubmitOtp}
         onClickResendOtp={onClickResendOtp}
-        onPressBack={onPressBack}
+        onClickBackAuth={onClickBackAuth}
         email={email}
         onChangeEmail={onChangeEmail}
         otp={otp}
@@ -107,7 +114,15 @@ const UIHome = ({
         otpErrorMessage={otpErrorMessage}
         isRequestOtpPending={isRequestOtpPending}
         isVerifyOtpPending={isVerifyOtpPending}
-        swiperRef={swiperRef}
+        authSwiperRef={authSwiperRef}
+      />
+      <MyRendersModal
+        isOpen={isMyRendersModalOpen}
+        onClickBackMyRenders={onClickBackMyRenders}
+        isGetMyRendersPending={isGetMyRendersPending}
+        myRenders={myRenders}
+        myRendersSwiperRef={myRendersSwiperRef}
+        onClickRender={onClickRender}
       />
     </>
   );

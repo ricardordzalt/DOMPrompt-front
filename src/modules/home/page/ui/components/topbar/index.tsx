@@ -9,11 +9,11 @@ import AppIcon from "../../../../assets/icons/app-icon.svg?react";
 
 interface TopBarProps {
   onClickNewRender: VoidFunction;
-  onClickRenders: VoidFunction;
+  onClickMyRenders: VoidFunction;
   onClickLogout: VoidFunction;
 }
 
-const TopBar = ({ onClickNewRender, onClickRenders, onClickLogout }: TopBarProps) => {
+const TopBar = ({ onClickNewRender, onClickMyRenders, onClickLogout }: TopBarProps) => {
   return (
     <div className={styles.container}>
       {/* Sidebar / Topbar */}
@@ -41,7 +41,7 @@ const TopBar = ({ onClickNewRender, onClickRenders, onClickLogout }: TopBarProps
             <li role="menuitem">
               <button
                 className={styles.topbarButton}
-                onClick={onClickRenders}
+                onClick={onClickMyRenders}
                 title="My renders"
                 aria-label="Display a modal with saved renders"
               >

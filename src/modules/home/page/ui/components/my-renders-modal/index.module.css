@@ -1,17 +1,18 @@
-.authModalOverlay {
+.myRendersModalOverlay {
   position: fixed;
   inset: 0px;
   background-color: rgba(255, 255, 255, 0.5);
 }
 
-.authModal {
+.myRendersModal {
   position: absolute;
   inset: 2.5rem;
   background-color: var(--white-color);
   overflow: auto;
   outline: none;
-  width: 32rem;
-  height: 40rem;
+  width: 72rem;
+  max-width: 80%;
+  height: 37rem;
   margin: auto;
   border: 1px solid var(--primary-color);
   border-radius: 20px;
@@ -35,30 +36,7 @@
   font-size: 1rem;
 }
 
-.title {
-  text-align: center;
-  margin-top: 2.5rem;
-  color: var(--primary-text);
-  margin-bottom: 3.75rem;
-  font-size: 1.25rem;
-}
-
-.footerTitle {
-  margin-top: 1rem;
-  font-size: 1rem;
-  color: var(--primary-text);
-}
-
-.resendButton {
-  background-color: transparent;
-  border: none;
-  text-decoration: underline;
-  font-size: 1rem;
-  color: var(--tertiary-text);
-  cursor: pointer;
-}
-
-.authSwiper {
+.myRendersSwiper {
   height: 100%;
   width: 100%;
 }
@@ -75,12 +53,42 @@
   height: 100%;
 }
 
+.myRendersContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 3.75rem;
+  margin-top: 2rem;
+}
+
+.renderContainer {
+  width: 13.75rem;
+  height: 11.25rem;
+  border: 1px solid var(--primary-color);
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.renderButton {
+  background-color: var(--white-color);
+  border: none;
+  cursor: pointer;
+}
+
+.renderTitle {
+  color: var(--tertiary-text);
+  font-size: 1.25rem;
+}
+
 /* Estilos para móvil */
 @media (max-width: 768px) {
-  .authModal {
+  .myRendersModal {
     overflow: auto;
     outline: none;
-    width: 18rem;
+    width: 80%;
     height: 32rem;
     margin: auto;
     border: 1px solid var(--primary-color);
@@ -96,22 +104,7 @@
     color: var(--tertiary-text);
     font-size: 0.75rem;
   }
-
-  .title {
-    text-align: center;
-    margin-top: 2.5rem;
-    margin-bottom: 3.75rem;
-    font-size: 0.75rem;
-  }
-
-  .footerTitle {
-    font-size: 0.6rem;
-  }
-
-  .resendButton {
-    font-size: 0.6rem;
-  }
-
+  
   .icon {
     width: 0.75rem;
     height: 0.75rem;
