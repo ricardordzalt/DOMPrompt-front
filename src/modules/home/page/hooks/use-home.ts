@@ -196,7 +196,7 @@ const useHome = () => {
     setTimeout(() => navigate("/", { replace: true }), 1);
   }
   
-  const onClickApplications= () => {
+  const onClickRenders= () => {
   }
 
   const onClickLogout: React.ChangeEventHandler<HTMLInputElement> = async (e) => {
@@ -253,7 +253,7 @@ const useHome = () => {
     onClickCopyRender,
     onClickSaveRender,
     onClickNewRender,
-    onClickApplications,
+    onClickRenders,
     onClickLogout,
     screenLoading,
     swiperRef,

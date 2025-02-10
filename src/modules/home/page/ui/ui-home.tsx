@@ -34,7 +34,7 @@ const UIHome = ({
   onClickCopyRender,
   onClickSaveRender,
   onClickNewRender,
-  onClickApplications,
+  onClickRenders,
   onClickLogout,
   screenLoading,
   swiperRef,
@@ -47,13 +47,13 @@ const UIHome = ({
       <span className={styles.container}>
         <SideBar
           onClickNewRender={onClickNewRender}
-          onClickApplications={onClickApplications}
+          onClickRenders={onClickRenders}
         />
         <div className={styles.rightContainer}>
           <span className={styles.topbarContainerMobile}>
             <TopBar
               onClickNewRender={onClickNewRender}
-              onClickApplications={onClickApplications}
+              onClickRenders={onClickRenders}
               onClickLogout={onClickLogout}
             />
           </span>
@@ -61,7 +61,7 @@ const UIHome = ({
             <span className={styles.topbarContainerDesktop}>
               <TopBar
                 onClickNewRender={onClickNewRender}
-                onClickApplications={onClickApplications}
+                onClickRenders={onClickRenders}
                 onClickLogout={onClickLogout}
               />
             </span>

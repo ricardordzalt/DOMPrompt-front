@@ -5,10 +5,10 @@ import AppIcon from "../../../../assets/icons/app-icon.svg?react";
 
 interface SideBarProps {
   onClickNewRender: VoidFunction;
-  onClickApplications: VoidFunction;
+  onClickRenders: VoidFunction;
 }
 
-const SideBar = ({ onClickNewRender, onClickApplications }: SideBarProps) => {
+const SideBar = ({ onClickNewRender, onClickRenders }: SideBarProps) => {
   return (
     <div className={styles.container}>
       <nav className={styles.navigation} aria-label="Sidebar navigation">
@@ -35,9 +35,9 @@ const SideBar = ({ onClickNewRender, onClickApplications }: SideBarProps) => {
             <li className={styles.siderbarOption} role="menuitem">
               <button
                 className={styles.siderbarButton}
-                onClick={onClickApplications}
-                title="My applications"
-                aria-label="Display a modal with saved applications"
+                onClick={onClickRenders}
+                title="My renders"
+                aria-label="Display a modal with saved renders"
               >
                 <FontAwesomeIcon
                   icon={faBorderAll}
