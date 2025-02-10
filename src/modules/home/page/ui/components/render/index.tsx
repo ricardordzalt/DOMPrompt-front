@@ -22,7 +22,7 @@ const Render = ({ render, ref, isLoading }: RenderProps) => {
       <iframe
         ref={ref}
         title="HTML Renderer"
-        sandbox="allow-same-origin allow-scripts allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-pointer-lock allow-storage-access-by-user-activation allow-top-navigation allow-top-navigation-by-user-activation allow-downloads allow-downloads-without-user-activation allow-presentation"
+        sandbox="allow-same-origin allow-scripts allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-pointer-lock allow-storage-access-by-user-activation allow-downloads allow-downloads-without-user-activation allow-presentation"
         srcDoc={render}
         className={styles.render}
       />
