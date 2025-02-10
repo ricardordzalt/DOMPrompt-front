@@ -68,6 +68,13 @@
   height: 1.5rem;
 }
 
+.loaderContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
 /* Estilos para móvil */
 @media (max-width: 768px) {
   .authModal {
@@ -100,7 +107,7 @@
   .footerTitle {
     font-size: 0.6rem;
   }
-  
+
   .resendButton {
     font-size: 0.6rem;
   }

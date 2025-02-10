@@ -9,6 +9,7 @@ import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import { RefObject } from "react";
+import Loader from "../../../../../../common/components/loader";
 
 Modal.setAppElement("#root");
 
@@ -26,6 +27,8 @@ interface AuthModalProps {
   submitOtpDisabled: boolean;
   emailErrorMessage: string;
   otpErrorMessage: string;
+  isRequestOtpPending: boolean;
+  isVerifyOtpPending: boolean;
   swiperRef: RefObject<SwiperClass>;
 }
 
@@ -35,6 +38,7 @@ interface EmailSlideProps {
   onSubmitEmail: VoidFunction;
   submitEmailDisabled: boolean;
   emailErrorMessage: string;
+  isLoading: boolean;
 }
 
 interface OtpSlideProps {
@@ -45,6 +49,7 @@ interface OtpSlideProps {
   onPressBack: VoidFunction;
   submitOtpDisabled: boolean;
   otpErrorMessage: string;
+  isLoading: boolean;
 }
 
 const AuthModal = ({
@@ -61,6 +66,8 @@ const AuthModal = ({
   submitOtpDisabled,
   emailErrorMessage,
   otpErrorMessage,
+  isRequestOtpPending,
+  isVerifyOtpPending,
   swiperRef,
 }: AuthModalProps) => {
   return (
@@ -87,6 +94,7 @@ const AuthModal = ({
             onSubmitEmail={onSubmitEmail}
             submitEmailDisabled={submitEmailDisabled}
             emailErrorMessage={emailErrorMessage}
+            isLoading={isRequestOtpPending}
           />
         </SwiperSlide>
         <SwiperSlide>
@@ -98,6 +106,7 @@ const AuthModal = ({
             onPressBack={onPressBack}
             submitOtpDisabled={submitOtpDisabled}
             otpErrorMessage={otpErrorMessage}
+            isLoading={isVerifyOtpPending}
           />
         </SwiperSlide>
       </Swiper>
@@ -111,22 +120,29 @@ const EmailSlide = ({
   onSubmitEmail,
   submitEmailDisabled,
   emailErrorMessage,
+  isLoading,
 }: EmailSlideProps) => {
+  if (isLoading) {
+    return (
+      <span className={styles.loaderContainer}>
+        <Loader />
+      </span>
+    );
+  }
+
   return (
-    <div className="step">
-      <div className={styles.modelContentContainer}>
-        <p className={styles.title}>Login</p>
-        <ChatInput
-          onSubmit={onSubmitEmail}
-          onChange={onChangeEmail}
-          value={email}
-          disabled={false}
-          buttonDisabled={submitEmailDisabled}
-          errorMessage={emailErrorMessage}
-          placeholder="Enter your e-mail adress"
-          label="E-mail"
-        />
-      </div>
+    <div className={styles.modelContentContainer}>
+      <p className={styles.title}>Login</p>
+      <ChatInput
+        onSubmit={onSubmitEmail}
+        onChange={onChangeEmail}
+        value={email}
+        disabled={false}
+        buttonDisabled={submitEmailDisabled}
+        errorMessage={emailErrorMessage}
+        placeholder="Enter your e-mail adress"
+        label="E-mail"
+      />
     </div>
   );
 };
@@ -139,46 +155,53 @@ const OtpSlide = ({
   onPressBack,
   submitOtpDisabled,
   otpErrorMessage,
+  isLoading,
 }: OtpSlideProps) => {
+  if (isLoading) {
+    return (
+      <span className={styles.loaderContainer}>
+        <Loader />
+      </span>
+    );
+  }
+
   return (
-    <div className="step">
-      <div className={styles.modelContentContainer}>
+    <div className={styles.modelContentContainer}>
+      <span
+        role="button"
+        className={styles.modelHeaderContainer}
+        onClick={onPressBack}
+      >
+        <FontAwesomeIcon
+          icon={faArrowLeft}
+          color="var(--icon-color)"
+          fixedWidth
+          className={styles.icon}
+        />
+        <p className={styles.headerTitle}>Back</p>
+      </span>
+      <p className={styles.title}>Verification code</p>
+      <ChatInput
+        onSubmit={onSubmitOtp}
+        onChange={onChangeOtp}
+        value={otp}
+        disabled={false}
+        buttonDisabled={submitOtpDisabled}
+        errorMessage={otpErrorMessage}
+        placeholder="xxxxxx"
+        label="Enter your OTP code"
+        maxLength={6}
+      />
+      <p className={styles.footerTitle}>
+        You did not receive the code?{" "}
         <span
           role="button"
-          className={styles.modelHeaderContainer}
-          onClick={onPressBack}
+          onClick={onClickResendOtp}
+          className={styles.resendButton}
         >
-          <FontAwesomeIcon
-            icon={faArrowLeft}
-            color="var(--icon-color)"
-            fixedWidth
-            className={styles.icon}
-          />
-          <p className={styles.headerTitle}>Back</p>
+          Resend
         </span>
-        <p className={styles.title}>Verification code</p>
-        <ChatInput
-          onSubmit={onSubmitOtp}
-          onChange={onChangeOtp}
-          value={otp}
-          disabled={false}
-          buttonDisabled={submitOtpDisabled}
-          errorMessage={otpErrorMessage}
-          placeholder="xxxxxx"
-          label="Enter your OTP code"
-          maxLength={6}
-        />
-        <p className={styles.footerTitle}>
-          You did not receive the code?{" "}
-          <span
-            role="button"
-            onClick={onClickResendOtp}
-            className={styles.resendButton}
-          >
-            Resend
-          </span>
-        </p>
-      </div>
+      </p>
     </div>
   );
 };

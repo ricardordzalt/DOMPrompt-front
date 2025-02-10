@@ -8,7 +8,7 @@ import { Render } from "./components/render";
 import { AuthModal } from "./components/auth-modal";
 
 const UIHome = ({
-  handleSend,
+  handleSendRender,
   onChangePrompt,
   isGetNewRenderPending,
   prompt,
@@ -28,6 +28,10 @@ const UIHome = ({
   submitOtpDisabled,
   emailErrorMessage,
   otpErrorMessage,
+  isRequestOtpPending,
+  isVerifyOtpPending,
+  onClickCopyRender,
+  onClickSaveRender,
   swiperRef,
 }: any) => {
   return (
@@ -44,7 +48,7 @@ const UIHome = ({
             </span>
             <span className={styles.chatContainer}>
               <ChatInput
-                onSubmit={handleSend}
+                onSubmit={handleSendRender}
                 onChange={onChangePrompt}
                 value={prompt}
                 disabled={isGetNewRenderPending}
@@ -53,10 +57,17 @@ const UIHome = ({
               />
             </span>
             <span className={styles.buttonsContainer}>
-              <RenderButtons />
+              <RenderButtons
+                onClickCopyRender={onClickCopyRender}
+                onClickSaveRender={onClickSaveRender}
+              />
             </span>
             <span className={styles.renderContainer}>
-              <Render html={render} ref={iframeRef} />
+              <Render
+                render={render}
+                ref={iframeRef}
+                isLoading={isGetNewRenderPending}
+              />
             </span>
           </span>
         </div>
@@ -75,6 +86,8 @@ const UIHome = ({
         submitOtpDisabled={submitOtpDisabled}
         emailErrorMessage={emailErrorMessage}
         otpErrorMessage={otpErrorMessage}
+        isRequestOtpPending={isRequestOtpPending}
+        isVerifyOtpPending={isVerifyOtpPending}
         swiperRef={swiperRef}
       />
     </>

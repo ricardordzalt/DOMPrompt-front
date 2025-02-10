@@ -48,14 +48,18 @@ const useHome = () => {
   } = queryResult;
 
   // State
-  const [{ prompt, email, otp, isAuthModalOpen }, setState] = useState({
+  const [{ prompt, email, otp, isAuthModalOpen, render }, setState] = useState({
     prompt: "",
     email: "",
     otp: "",
     isAuthModalOpen: false,
+    render: "",
   });
 
   // Handlers for state
+  const setRender = (render: string) =>
+    setState((prev) => ({ ...prev, render }));
+
   const setPrompt = (prompt: string) =>
     setState((prev) => ({ ...prev, prompt }));
 
@@ -80,14 +84,18 @@ const useHome = () => {
     mutateAsync: getNewRenderCall,
     isPending: isGetNewRenderPending,
     error: getNewRenderError,
-    data: getNewRenderData,
   } = useMutation<any, Error, GetNewRender>({
     mutationFn: getNewRender,
+    onSuccess: (getNewRenderData) => {
+      if (getNewRenderData?.status === 200) {
+        setRender(getNewRenderData?.render);
+      }
+    },
   });
 
   const {
     mutateAsync: requestOtpCodeCall,
-    // isPending: isRequestOtpPending,
+    isPending: isRequestOtpPending,
     // error: requestOtpError,
     // data: requestOtpData,
   } = useMutation<any, Error, RequestOtpCode>({
@@ -101,7 +109,7 @@ const useHome = () => {
 
   const {
     mutateAsync: verifyOtpCodeCall,
-    // isPending: isVerifyOtpPending,
+    isPending: isVerifyOtpPending,
     // error: verifyOtpError,
     data: verifyOtpData,
   } = useMutation<any, Error, VerifyOtpCode>({
@@ -121,7 +129,7 @@ const useHome = () => {
     swiperRef.current?.slidePrev();
   };
 
-  const handleSend = async (e: React.FormEvent) => {
+  const handleSendRender = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const currentRender = getUpdatedRender(iframeRef);
@@ -152,12 +160,17 @@ const useHome = () => {
   };
 
   const onClickResendOtp = () => {};
+  const onClickCopyRender = () => {
+    // Copy the text inside the text field
+    const clipboadText = getUpdatedRender(iframeRef);
+    navigator.clipboard.writeText(clipboadText);
+  };
+  const onClickSaveRender = () => {};
 
   // Computed / Derived states
   const submitEmailDisabled = !isValidEmail(email);
   const submitOtpDisabled = otp.length < 6;
   const errorMessage = getNewRenderError?.message;
-  const render = getNewRenderData?.render;
 
   const emailErrorMessage = (() => {
     if (email && submitEmailDisabled) {
@@ -177,7 +190,7 @@ const useHome = () => {
   })();
 
   return {
-    handleSend,
+    handleSendRender,
     onChangePrompt,
     isGetNewRenderPending,
     prompt,
@@ -197,6 +210,10 @@ const useHome = () => {
     submitOtpDisabled,
     emailErrorMessage,
     otpErrorMessage,
+    isRequestOtpPending,
+    isVerifyOtpPending,
+    onClickCopyRender,
+    onClickSaveRender,
     swiperRef,
   };
 };
