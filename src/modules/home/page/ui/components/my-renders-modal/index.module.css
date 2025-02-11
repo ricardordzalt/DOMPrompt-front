@@ -69,7 +69,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  
 }
 
 .renderButton {
@@ -81,6 +80,12 @@
 .renderTitle {
   color: var(--tertiary-text);
   font-size: 1.25rem;
+}
+
+.renderImage {
+  height: 100%;
+  width: 100%;
+  border-radius: 20px;
 }
 
 /* Estilos para móvil */
@@ -108,5 +113,23 @@
   .icon {
     width: 0.75rem;
     height: 0.75rem;
+  }
+
+  .myRendersContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, auto);
+    gap: 2.5rem;
+    margin-top: 1.5rem;
+  }
+  
+  .renderContainer {
+    width: 6.25rem;
+    height: 6.25rem;
+    border: 1px solid var(--primary-color);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

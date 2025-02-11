@@ -192,7 +192,7 @@ const OtpSlide = ({
         label="Enter your OTP code"
         maxLength={6}
       />
-      <p className={styles.footerTitle}>
+      {/* <p className={styles.footerTitle}>
         You did not receive the code?{" "}
         <span
           role="button"
@@ -201,7 +201,7 @@ const OtpSlide = ({
         >
           Resend
         </span>
-      </p>
+      </p> */}
     </div>
   );
 };

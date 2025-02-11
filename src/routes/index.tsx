@@ -4,7 +4,7 @@ import { Home } from "../modules/home/page";
 const Routes = () => {
   return (
     <ReactRouter>
-      <ReactRoute path="/" element={<Home />} />
+      <ReactRoute path="/:renderId?" element={<Home />} />
       <ReactRoute path="/notexistingpage" element={<></>} />
     </ReactRouter>
   );

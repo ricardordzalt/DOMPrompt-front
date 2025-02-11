@@ -9,6 +9,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { RefObject } from "react";
 import Loader from "../../../../../../common/components/loader";
+import { Render } from "../../../hooks/use-home";
+import { VITE_IMAGE_BASE_URL } from "../../../../../../constants/api";
 
 Modal.setAppElement("#root");
 
@@ -16,16 +18,16 @@ interface MyRendersProps {
   isOpen: boolean;
   onClickBackMyRenders: VoidFunction;
   isGetMyRendersPending: boolean;
-  myRenders: object[];
+  myRenders: Render[];
   onClickRender: VoidFunction;
   myRendersSwiperRef: RefObject<SwiperClass>;
 }
 
 interface MyRendersSlideProps {
-  renders: object[];
+  renders: Render[];
   onClickBackMyRenders: VoidFunction;
   isLoading: boolean;
-  onClickRender: (render: object) => void;
+  onClickRender: (render: Render) => void;
 }
 
 const MyRendersModal = ({
@@ -42,6 +44,8 @@ const MyRendersModal = ({
       className={styles.myRendersModal}
       overlayClassName={styles.myRendersModalOverlay}
       isOpen={isOpen}
+      shouldCloseOnEsc
+      onRequestClose={onClickBackMyRenders}
     >
       <Swiper
         modules={[Pagination]}
@@ -50,7 +54,7 @@ const MyRendersModal = ({
         spaceBetween={0}
         slidesPerView={1}
         className={styles.myRendersSwiper}
-        allowTouchMove={false}
+        allowTouchMove
         onSwiper={(swiper) => (myRendersSwiperRef.current = swiper)}
       >
         <SwiperSlide>
@@ -96,13 +100,17 @@ const MyRendersSlide = ({
         <p className={styles.headerTitle}>Back</p>
       </span>
       <span className={styles.myRendersContainer}>
-        {renders?.map((render, index) => (
-          <button className={styles.renderButton} onClick={() => onClickRender(render)}>
-            <span className={styles.renderContainer}>
-              <p className={styles.renderTitle}>{index + 1}</p>
-            </span>
-          </button>
-        ))}
+        {renders?.map((render) => (
+            <button
+              key={render?._id}
+              className={styles.renderButton}
+              onClick={() => onClickRender(render)}
+            >
+              <span className={styles.renderContainer}>
+                <img src={`${VITE_IMAGE_BASE_URL}${render?.image_path}`} alt="My render" className={styles.renderImage}/>
+              </span>
+            </button>
+          ))}
       </span>
     </div>
   );

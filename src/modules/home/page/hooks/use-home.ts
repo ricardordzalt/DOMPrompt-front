@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useRef, useEffect } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { SwiperClass } from "swiper/react";
 
 import {
@@ -16,10 +16,18 @@ import {
   VerifyOtpCode,
   verifyOtpCode,
 } from "../../../../api/auth/verify-otp-code";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { logOut } from "../../../../api/auth/log-out";
 import { getMyRenders } from "../../../../api/renders/get-my-renders";
 import { SaveRender, saveRender } from "../../../../api/renders/save-render";
+import { getRender } from "../../../../api/renders/get-render";
+import { UpdateRender, updateRender } from "../../../../api/renders/update-render";
+
+export interface Render {
+  _id: string;
+  code: string;
+  image_path: string;
+}
 
 const isValidEmail = (email: string): boolean => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -40,19 +48,11 @@ const getUpdatedRender = (
 };
 
 const useHome = () => {
+  const { renderId } = useParams();
   const authSwiperRef = useRef<SwiperClass>(null);
   const myRendersSwiperRef = useRef<SwiperClass>(null);
 
   const navigate = useNavigate();
-
-  // Auth check
-  const queryResult = useCheckAuth();
-  const {
-    data: checkAuthData,
-    isSuccess: isCheckAuthSuccess,
-    // error: checkAuthError,
-    // isPending: isCheckAuthPending,
-  } = queryResult;
 
   // State
   const [
@@ -85,6 +85,15 @@ const useHome = () => {
   const setIsMyRendersModalOpen = (isMyRendersModalOpen: boolean) =>
     setState((prev) => ({ ...prev, isMyRendersModalOpen }));
 
+  // Queries
+  
+  const queryResult = useCheckAuth();
+  const {
+    data: checkAuthData,
+    isSuccess: isCheckAuthSuccess,
+    // error: checkAuthError,
+    // isPending: isCheckAuthPending,
+  } = queryResult;
   // Effects
   useEffect(() => {
     if (checkAuthData?.status === 200 && isCheckAuthSuccess) {
@@ -93,6 +102,24 @@ const useHome = () => {
       setIsAuthModalOpen(true);
     }
   }, [checkAuthData?.status, isCheckAuthSuccess]);
+
+
+  const {
+    data: getRenderData,
+    isPending: isGetRenderPending,
+    // error: getRenderError,
+  } = useQuery({
+    queryKey: [renderId],
+    queryFn: () => getRender({ renderId } as { renderId: string }),
+    enabled: !!renderId, // La consulta solo se ejecuta si renderId no es null/undefined
+    refetchOnMount: false
+  });
+
+  useEffect(() => {
+    if (getRenderData?.status === 200) {
+      setRender(getRenderData?.render?.code);
+    }
+  }, [getRenderData?.status, getRenderData?.render?.code]);
 
   // Mutations
   const {
@@ -183,6 +210,23 @@ const useHome = () => {
     },
   });
 
+  const {
+    mutateAsync: updateRenderCall,
+    isPending: isUpdateRenderPending,
+    // error: updateRenderError,
+    // data: updateRenderData,
+  } = useMutation<any, Error, UpdateRender>({
+    mutationFn: updateRender,
+    onSuccess: async (data) => {
+      if (data?.status === 200) {
+        await getMyRendersCall();
+        setPrompt("");
+        setRender("");
+        setIsMyRendersModalOpen(true);
+      }
+    },
+  });
+
   // Refs
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
@@ -228,8 +272,10 @@ const useHome = () => {
     navigator.clipboard.writeText(clipboadText);
   };
   const onClickSaveRender = async () => {
-    if (render) {
+    if (render && !renderId) {
       await saveRenderCall({ render });
+    }else if(render && !!renderId){
+      await updateRenderCall({ render, renderId });
     }
   };
 
@@ -253,10 +299,6 @@ const useHome = () => {
 
   const onClickBackMyRenders = () => {
     const currentSlideIndex = myRendersSwiperRef.current?.realIndex;
-    console.log(
-      "🚀 ~ onClickBackMyRenders ~ currentSlideIndex:",
-      currentSlideIndex
-    );
     if (currentSlideIndex === 0) {
       setIsMyRendersModalOpen(false);
     } else {
@@ -264,17 +306,21 @@ const useHome = () => {
     }
   };
 
-  const onClickRender = (render: { code: string }) => {
-    console.log("🚀 ~ onClickRender ~ render:", render);
+  const onClickRender = (render: Render) => {
     setIsMyRendersModalOpen(false);
     setRender(render?.code);
+    navigate(`/${render?._id}`, { replace: true });
   };
 
   // Computed / Derived states
   const submitEmailDisabled = !isValidEmail(email);
   const submitOtpDisabled = otp.length < 6;
   const errorMessage = getNewRenderError?.message;
-  const screenLoading = isLogOutPending || isSaveRenderPending;
+  const screenLoading =
+    isLogOutPending ||
+    isSaveRenderPending ||
+    isUpdateRenderPending ||
+    (isGetRenderPending && !!renderId);
   const myRenders = myRendersData?.renders;
 
   const emailErrorMessage = (() => {

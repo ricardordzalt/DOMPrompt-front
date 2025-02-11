@@ -47,7 +47,7 @@ const UIHome = ({
   myRendersSwiperRef,
 }: any) => {
   if (screenLoading) {
-    return <Loader />;
+    return <span className={styles.loaderContainer}><Loader /></span>;
   }
   return (
     <>
