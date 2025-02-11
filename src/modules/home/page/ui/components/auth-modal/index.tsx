@@ -151,7 +151,7 @@ const OtpSlide = ({
   otp,
   onChangeOtp,
   onSubmitOtp,
-  onClickResendOtp,
+  // onClickResendOtp,
   onClickBackAuth,
   submitOtpDisabled,
   otpErrorMessage,
