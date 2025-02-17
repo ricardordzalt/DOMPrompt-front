@@ -21,7 +21,10 @@ import { logOut } from "../../../../api/auth/log-out";
 import { getMyRenders } from "../../../../api/renders/get-my-renders";
 import { SaveRender, saveRender } from "../../../../api/renders/save-render";
 import { getRender } from "../../../../api/renders/get-render";
-import { UpdateRender, updateRender } from "../../../../api/renders/update-render";
+import {
+  UpdateRender,
+  updateRender,
+} from "../../../../api/renders/update-render";
 
 export interface Render {
   _id: string;
@@ -56,7 +59,15 @@ const useHome = () => {
 
   // State
   const [
-    { prompt, email, otp, render, isAuthModalOpen, isMyRendersModalOpen },
+    {
+      prompt,
+      email,
+      otp,
+      render,
+      isAuthModalOpen,
+      isMyRendersModalOpen,
+      policyPrivacyChecked,
+    },
     setState,
   ] = useState({
     prompt: "",
@@ -65,6 +76,7 @@ const useHome = () => {
     render: "",
     isAuthModalOpen: false,
     isMyRendersModalOpen: false,
+    policyPrivacyChecked: false,
   });
 
   // Handlers for state
@@ -85,8 +97,11 @@ const useHome = () => {
   const setIsMyRendersModalOpen = (isMyRendersModalOpen: boolean) =>
     setState((prev) => ({ ...prev, isMyRendersModalOpen }));
 
+  const setPolicyPrivacyChecked = (policyPrivacyChecked: boolean) =>
+    setState((prev) => ({ ...prev, policyPrivacyChecked }));
+
   // Queries
-  
+
   const queryResult = useCheckAuth();
   const {
     data: checkAuthData,
@@ -103,7 +118,6 @@ const useHome = () => {
     }
   }, [checkAuthData?.status, isCheckAuthSuccess]);
 
-
   const {
     data: getRenderData,
     isPending: isGetRenderPending,
@@ -112,7 +126,7 @@ const useHome = () => {
     queryKey: [renderId],
     queryFn: () => getRender({ renderId } as { renderId: string }),
     enabled: !!renderId, // La consulta solo se ejecuta si renderId no es null/undefined
-    refetchOnMount: false
+    refetchOnMount: false,
   });
 
   useEffect(() => {
@@ -142,7 +156,7 @@ const useHome = () => {
     mutateAsync: requestOtpCodeCall,
     isPending: isRequestOtpPending,
     // error: requestOtpError,
-    // data: requestOtpData,
+    data: requestOtpData,
   } = useMutation<any, Error, RequestOtpCode>({
     mutationFn: requestOtpCode,
     onSuccess: (data) => {
@@ -157,6 +171,7 @@ const useHome = () => {
     isPending: isVerifyOtpPending,
     // error: verifyOtpError,
     data: verifyOtpData,
+    reset: resetVerifyOtp,
   } = useMutation<any, Error, VerifyOtpCode>({
     mutationFn: verifyOtpCode,
     onSuccess: (data) => {
@@ -164,6 +179,7 @@ const useHome = () => {
         setIsAuthModalOpen(false);
         setEmail("");
         setOtp("");
+        setPolicyPrivacyChecked(false);
       }
     },
   });
@@ -233,6 +249,9 @@ const useHome = () => {
   // Handlers
   const onClickBackAuth = () => {
     authSwiperRef.current?.slidePrev();
+    setOtp("");
+    setPolicyPrivacyChecked(false);
+    resetVerifyOtp();
   };
 
   const onSubmitPrompt = async (e: React.FormEvent) => {
@@ -262,6 +281,9 @@ const useHome = () => {
 
   const onSubmitOtp = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (requestOtpData?.isNewUser && !policyPrivacyChecked) {
+      return;
+    }
     await verifyOtpCodeCall({ email, otpCode: otp });
   };
 
@@ -275,7 +297,7 @@ const useHome = () => {
     if (render && !renderId) {
       const currentRender = getUpdatedRender(iframeRef);
       await saveRenderCall({ render: currentRender });
-    }else if(render && !!renderId){
+    } else if (render && !!renderId) {
       const currentRender = getUpdatedRender(iframeRef);
       await updateRenderCall({ render: currentRender, renderId });
     }
@@ -283,7 +305,7 @@ const useHome = () => {
 
   const onClickNewRender = () => {
     // Forces redirect to this page while reseting the component
-    navigate("/notexistingpage", { replace: true });
+    navigate("/not-existing-page", { replace: true });
     setTimeout(() => navigate("/", { replace: true }), 1);
   };
 
@@ -314,9 +336,22 @@ const useHome = () => {
     navigate(`/${render?._id}`, { replace: true });
   };
 
+  const onClickPrivacyPolicyCheckbox = () => {
+    setPolicyPrivacyChecked(!policyPrivacyChecked);
+  };
+
   // Computed / Derived states
+  const showPolicyPrivacy = requestOtpData?.isNewUser;
   const submitEmailDisabled = !isValidEmail(email);
-  const submitOtpDisabled = otp.length < 6;
+  const submitOtpDisabled = (() => {
+    if (otp.length < 6) {
+      return true;
+    }
+    if (requestOtpData?.isNewUser && !policyPrivacyChecked) {
+      return true;
+    }
+    return false;
+  })();
   const errorMessage = getNewRenderError?.message;
   const screenLoading =
     isLogOutPending ||
@@ -333,7 +368,7 @@ const useHome = () => {
   })();
 
   const otpErrorMessage = (() => {
-    if (otp && submitOtpDisabled) {
+    if (otp && otp.length < 6) {
       return "Invalid code";
     }
     if (verifyOtpData?.error && typeof verifyOtpData.error === "string") {
@@ -376,6 +411,9 @@ const useHome = () => {
     isGetMyRendersPending,
     myRenders,
     onClickRender,
+    showPolicyPrivacy,
+    policyPrivacyChecked,
+    onClickPrivacyPolicyCheckbox,
     authSwiperRef,
     myRendersSwiperRef,
   };

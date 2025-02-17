@@ -47,7 +47,6 @@ const MyRendersModal = ({
   onClickRender,
   myRendersSwiperRef,
 }: MyRendersProps) => {
-  console.log(chunkRenersArray(myRenders,6))
   return (
     <Modal
       contentLabel="My Renders Modal"

@@ -42,12 +42,19 @@ const UIHome = ({
   onClickBackMyRenders,
   isGetMyRendersPending,
   myRenders,
-  authSwiperRef,
   onClickRender,
+  showPolicyPrivacy,
+  policyPrivacyChecked,
+  onClickPrivacyPolicyCheckbox,
+  authSwiperRef,
   myRendersSwiperRef,
 }: any) => {
   if (screenLoading) {
-    return <span className={styles.loaderContainer}><Loader /></span>;
+    return (
+      <span className={styles.loaderContainer}>
+        <Loader />
+      </span>
+    );
   }
   return (
     <>
@@ -114,6 +121,9 @@ const UIHome = ({
         otpErrorMessage={otpErrorMessage}
         isRequestOtpPending={isRequestOtpPending}
         isVerifyOtpPending={isVerifyOtpPending}
+        showPolicyPrivacy={showPolicyPrivacy}
+        policyPrivacyChecked={policyPrivacyChecked}
+        onClickPrivacyPolicyCheckbox={onClickPrivacyPolicyCheckbox}
         authSwiperRef={authSwiperRef}
       />
       <MyRendersModal

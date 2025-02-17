@@ -12,6 +12,7 @@ interface ChatInputProps {
   placeholder?: string;
   label?: string;
   maxLength?: number;
+  footer?: React.ReactNode;
 }
 
 const ChatInput = ({
@@ -24,6 +25,7 @@ const ChatInput = ({
   placeholder = "Message ChatRender",
   label = "Let's create!",
   maxLength,
+  footer,
 }: ChatInputProps) => {
   return (
     <div className={styles.container}>
@@ -57,6 +59,9 @@ const ChatInput = ({
           </button>
         </span>
         {errorMessage ? <p className={styles.error}>{errorMessage}</p> : null}
+        {footer ? (
+          <span className={styles.footerContainer}>{footer}</span>
+        ) : null}
       </form>
     </div>
   );

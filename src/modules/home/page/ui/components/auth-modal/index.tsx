@@ -29,6 +29,9 @@ interface AuthModalProps {
   otpErrorMessage: string;
   isRequestOtpPending: boolean;
   isVerifyOtpPending: boolean;
+  showPolicyPrivacy: boolean;
+  policyPrivacyChecked: boolean;
+  onClickPrivacyPolicyCheckbox: VoidFunction;
   authSwiperRef: RefObject<SwiperClass>;
 }
 
@@ -50,6 +53,9 @@ interface OtpSlideProps {
   submitOtpDisabled: boolean;
   otpErrorMessage: string;
   isLoading: boolean;
+  showPolicyPrivacy: boolean;
+  policyPrivacyChecked: boolean;
+  onClickPrivacyPolicyCheckbox: VoidFunction;
 }
 
 const AuthModal = ({
@@ -68,6 +74,9 @@ const AuthModal = ({
   otpErrorMessage,
   isRequestOtpPending,
   isVerifyOtpPending,
+  showPolicyPrivacy,
+  policyPrivacyChecked,
+  onClickPrivacyPolicyCheckbox,
   authSwiperRef,
 }: AuthModalProps) => {
   return (
@@ -107,6 +116,9 @@ const AuthModal = ({
             submitOtpDisabled={submitOtpDisabled}
             otpErrorMessage={otpErrorMessage}
             isLoading={isVerifyOtpPending}
+            showPolicyPrivacy={showPolicyPrivacy}
+            policyPrivacyChecked={policyPrivacyChecked}
+            onClickPrivacyPolicyCheckbox={onClickPrivacyPolicyCheckbox}
           />
         </SwiperSlide>
       </Swiper>
@@ -156,6 +168,9 @@ const OtpSlide = ({
   submitOtpDisabled,
   otpErrorMessage,
   isLoading,
+  showPolicyPrivacy,
+  policyPrivacyChecked,
+  onClickPrivacyPolicyCheckbox,
 }: OtpSlideProps) => {
   if (isLoading) {
     return (
@@ -164,6 +179,30 @@ const OtpSlide = ({
       </span>
     );
   }
+
+  const policyPrivacy = (
+    <span className={styles.checkboxContainer}>
+      <input
+        type="checkbox"
+        id="policy-privacy"
+        name="policyPrivacy"
+        value="newsletter"
+        checked={policyPrivacyChecked}
+        className={styles.checkbox}
+        onClick={onClickPrivacyPolicyCheckbox}
+      />
+      <label htmlFor="policy-privacy" className={styles.checkboxLabel}>
+        I have read and accept the{" "}
+        <a
+          href="/policy-privacy"
+          target="_blank"
+          className={styles.checkboxLink}
+        >
+          policy privacy
+        </a>
+      </label>
+    </span>
+  );
 
   return (
     <div className={styles.modelContentContainer}>
@@ -191,6 +230,7 @@ const OtpSlide = ({
         placeholder="xxxxxx"
         label="Enter your OTP code"
         maxLength={6}
+        footer={showPolicyPrivacy ? policyPrivacy : null}
       />
       {/* <p className={styles.footerTitle}>
         You did not receive the code?{" "}
