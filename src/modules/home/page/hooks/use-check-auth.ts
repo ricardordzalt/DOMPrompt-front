@@ -6,7 +6,7 @@ const useCheckAuth = () => {
     queryKey: ["auth"],
     queryFn: checkAuth,
     refetchOnMount: true,
-    retry: 0,
+    retry: false,
   });
 
   return query;

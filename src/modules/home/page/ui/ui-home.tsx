@@ -93,6 +93,8 @@ const UIHome = ({
               <RenderButtons
                 onClickCopyRender={onClickCopyRender}
                 onClickSaveRender={onClickSaveRender}
+                copyRenderButtonDisabled={isGetNewRenderPending}
+                saveRenderButtonDisabled={isGetNewRenderPending}
               />
             </span>
             <span className={styles.renderContainer}>
