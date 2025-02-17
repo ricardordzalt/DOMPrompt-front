@@ -273,9 +273,11 @@ const useHome = () => {
   };
   const onClickSaveRender = async () => {
     if (render && !renderId) {
-      await saveRenderCall({ render });
+      const currentRender = getUpdatedRender(iframeRef);
+      await saveRenderCall({ render: currentRender });
     }else if(render && !!renderId){
-      await updateRenderCall({ render, renderId });
+      const currentRender = getUpdatedRender(iframeRef);
+      await updateRenderCall({ render: currentRender, renderId });
     }
   };
 
