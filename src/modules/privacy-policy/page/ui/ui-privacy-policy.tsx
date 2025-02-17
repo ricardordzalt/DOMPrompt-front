@@ -8,7 +8,7 @@ const UIPolicyPrivacy = () => {
       <section className={styles.section}>
         <h2 className={styles.subtitle}>1. Introduction</h2>
         <p>At <strong>ChatRender.com</strong>, we value your privacy and are committed to protecting your personal data. This policy explains how we collect, use, and protect your information when using our services.</p>
-        <p>This policy complies with privacy regulations applicable in **Mexico** and other countries where we operate, including the **Federal Law on Protection of Personal Data Held by Private Parties (LFPDPPP)** and the **General Data Protection Regulation (GDPR)** of the European Union, among other international standards.</p>
+        <p>This policy adheres to the privacy regulations applicable in Mexico and other countries where we operate, including the Federal Law on Protection of Personal Data Held by Private Parties (LFPDPPP) and the General Data Protection Regulation (GDPR) of the European Union, as well as other relevant international standards.</p>
       </section>
       
       <section className={styles.section}>

@@ -143,7 +143,7 @@ const EmailSlide = ({
   }
 
   return (
-    <div className={styles.modelContentContainer}>
+    <div className={styles.modalcontentContainer}>
       <p className={styles.title}>Login</p>
       <ChatInput
         onSubmit={onSubmitEmail}
@@ -205,7 +205,7 @@ const OtpSlide = ({
   );
 
   return (
-    <div className={styles.modelContentContainer}>
+    <div className={styles.modalcontentContainer}>
       <span
         role="button"
         className={styles.modelHeaderContainer}

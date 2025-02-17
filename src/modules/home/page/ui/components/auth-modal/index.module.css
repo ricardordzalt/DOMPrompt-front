@@ -17,7 +17,7 @@
   border-radius: 20px;
 }
 
-.modelContentContainer {
+.modalcontentContainer {
   padding: 2.5rem;
   padding-top: 1.25rem;
 }
@@ -135,7 +135,7 @@
     border-radius: 5px;
   }
 
-  .modelContentContainer {
+  .modalcontentContainer {
     padding: 1.25rem;
   }
 

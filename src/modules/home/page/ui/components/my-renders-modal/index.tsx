@@ -1,7 +1,7 @@
 import Modal from "react-modal";
 import styles from "./index.module.css";
 
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
@@ -29,6 +29,13 @@ interface MyRendersSlideProps {
   isLoading: boolean;
   onClickRender: (render: Render) => void;
 }
+
+interface EmptyRendersSlideProps {
+  onClickBackMyRenders: VoidFunction;
+  isLoading: boolean;
+}
+
+
 
 // Splits
 const chunkRenersArray = (array: Render[], size: number) => {
@@ -66,7 +73,7 @@ const MyRendersModal = ({
         allowTouchMove
         onSwiper={(swiper) => (myRendersSwiperRef.current = swiper)}
       >
-        {chunkRenersArray(myRenders, 6).map((chunk, index) => (
+        {myRenders?.length > 0 ? chunkRenersArray(myRenders, 6).map((chunk, index) => (
           <SwiperSlide key={index}>
             <MyRendersSlide
               renders={chunk} // Aquí se pasan los 6 (o menos en el último chunk) elementos
@@ -75,7 +82,12 @@ const MyRendersModal = ({
               onClickRender={onClickRender}
             />
           </SwiperSlide>
-        ))}
+        )): <SwiperSlide>
+        <EmptyRendersSlide
+          onClickBackMyRenders={onClickBackMyRenders}
+          isLoading={isGetMyRendersPending}
+        />
+      </SwiperSlide>}
       </Swiper>
     </Modal>
   );
@@ -96,7 +108,7 @@ const MyRendersSlide = ({
   }
 
   return (
-    <div className={styles.modelContentContainer}>
+    <div className={styles.modalcontentContainer}>
       <span
         role="button"
         className={styles.modelHeaderContainer}
@@ -115,7 +127,7 @@ const MyRendersSlide = ({
           <button
             key={render?._id}
             className={styles.renderButton}
-            onClick={() => onClickRender(render)}
+            onClick={() => onClickRender?.(render)}
           >
             <span className={styles.renderContainer}>
               <img
@@ -126,6 +138,46 @@ const MyRendersSlide = ({
             </span>
           </button>
         ))}
+      </span>
+    </div>
+  );
+};
+
+const EmptyRendersSlide = ({
+  onClickBackMyRenders,
+  isLoading,
+}: EmptyRendersSlideProps) => {
+  if (isLoading) {
+    return (
+      <span className={styles.loaderContainer}>
+        <Loader />
+      </span>
+    );
+  }
+
+  return (
+    <div className={styles.modalcontentContainer}>
+      <span
+        role="button"
+        className={styles.modelHeaderContainer}
+        onClick={onClickBackMyRenders}
+      >
+        <FontAwesomeIcon
+          icon={faArrowLeft}
+          color="var(--icon-color)"
+          fixedWidth
+          className={styles.icon}
+        />
+        <p className={styles.headerTitle}>Back</p>
+      </span>
+      <span className={styles.emptyRendersContainer}>
+
+      <FontAwesomeIcon
+          icon={faMagnifyingGlass}
+          color="var(--secondary-color)"
+          className={styles.emptyIcon}
+        />
+        <p className={styles.emptyTitle}>There is not renders yet</p>
       </span>
     </div>
   );

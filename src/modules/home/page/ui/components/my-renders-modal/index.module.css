@@ -18,9 +18,10 @@
   border-radius: 20px;
 }
 
-.modelContentContainer {
+.modalcontentContainer {
   padding: 2.5rem;
   padding-top: 1.25rem;
+  height: 100%;
 }
 
 .modelHeaderContainer {
@@ -89,6 +90,24 @@
   border-radius: 20px;
 }
 
+.emptyRendersContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex-direction: column;
+}
+
+.emptyIcon {
+  height: 5rem;
+  width: 5rem;
+}
+
+.emptyTitle {
+  font-size: 1rem;
+  margin-top: 0.75rem;
+}
+
 /* Estilos para móvil */
 @media (max-width: 768px) {
   .myRendersModal {
@@ -101,7 +120,7 @@
     border-radius: 5px;
   }
 
-  .modelContentContainer {
+  .modalcontentContainer {
     padding: 1.25rem;
   }
 
@@ -133,4 +152,15 @@
     justify-content: center;
     align-items: center;
   }
+
+  .emptyIcon {
+    height: 2.5rem;
+    width: 2.5rem;
+  }
+  
+  .emptyTitle {
+    font-size: 0.625rem;
+    margin-top: 1.25rem;
+  }
+  
 }
